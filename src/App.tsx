@@ -1,25 +1,77 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// App.tsx
+import React from "react";
+import Navbar from "./components/Nav/Nav";
+import { ThemeProvider, CssBaseline, Box } from "@mui/material";
+import theme from "./theme";
+import Carousel from "./components/Carousel/Carousel";
+import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
+import About from "./components/About/About";
+import GridComponent from "./components/GridComponent/GridComponent";
+import CitySlider from "./components/CitySlider/CitySlider";
+import Pricing from "./components/Pricing/Pricing";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Navbar />
+      <Carousel />
+      <MusicPlayer />
+      <About />
+      <GridComponent />
+      <Box mt={15} mb={10}>
+        <CitySlider
+          cities={[
+            "CMDX",
+            "MONTERREY",
+            "GUADALAJARA",
+            "NUEVA YORK",
+            "ORLANDO",
+            "PARIS",
+          ]}
+        />
+        <CitySlider
+          cities={[
+            "CMDX",
+            "MONTERREY",
+            "GUADALAJARA",
+            "NUEVA YORK",
+            "ORLANDO",
+            "PARIS",
+          ]}
+        />
+      </Box>
+      <Pricing
+        pricingData={[
+          {
+            imageUrl: "https://via.placeholder.com/200x200",
+            price: "$300",
+            items: [
+              "Lorem ipsum dolor",
+              "Lorem ipsum dolor sit",
+              "Lorem ipsum",
+              "Lorem ipsum dolor",
+            ],
+            packageName: "PAQUETE GREEK",
+            djName: "DJ GREEK",
+            audioSrc: "path/to/audio1.mp3",
+          },
+          {
+            imageUrl: "https://via.placeholder.com/200x200",
+            price: "$300",
+            items: [
+              "Lorem ipsum dolor",
+              "Lorem ipsum dolor sit",
+              "Lorem ipsum",
+              "Lorem ipsum dolor",
+            ],
+            packageName: "PAQUETE GREEK",
+            djName: "DJ GREEK",
+            audioSrc: "path/to/audio2.mp3",
+          },
+        ]}
+      />
+    </ThemeProvider>
   );
 }
 
