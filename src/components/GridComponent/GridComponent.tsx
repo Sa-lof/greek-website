@@ -33,6 +33,7 @@ const GridComponent = () => {
   const [selectedImage, setSelectedImage] = useState<Image | null>(null);
   const [currentSet, setCurrentSet] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSetLoading, setIsSetLoading] = useState(false); // Nuevo estado para el loader de navegación
 
   const getTitleFromFileName = (fileName: string): string => {
     const titlesMap: Record<string, string> = {
@@ -40,8 +41,7 @@ const GridComponent = () => {
       "Grik-34.jpeg": "Evento2",
       "image3.jpg": "Título personalizado 3",
     };
-  
-    return titlesMap[fileName] || fileName.split(".")[0]; 
+    return titlesMap[fileName] || fileName.split(".")[0];
   };
 
   const getTitleFromFileName2 = (fileName: string): string => {
@@ -50,37 +50,45 @@ const GridComponent = () => {
       "Grik-34.jpeg": "Descripcion Evento2",
       "image3.jpg": "Título personalizado 3",
     };
-  
     return titlesMap[fileName] || fileName.split(".")[0];
   };
-  
-  const fetchImages = useCallback(async () => {
-    const { data, error } = await supabase.storage
-      .from("Greek")
-      .list("Gallery", { limit: 1000 });
 
-    if (error) {
-      console.error("Error al obtener imágenes:", error);
+  const fetchImages = useCallback(async () => {
+    try {
+      const { data, error } = await supabase.storage
+        .from("Greek")
+        .list("Gallery", { limit: 1000 });
+
+      if (error) {
+        console.error("Error al obtener imágenes:", error);
+        return [];
+      }
+
+      const validFiles = data.filter(
+        (file) => file.name !== ".emptyFolderPlaceholder"
+      );
+
+      const imagePromises = validFiles.map(async (file) => {
+        const { data: publicUrlData } = await supabase.storage
+          .from("Greek")
+          .getPublicUrl(`Gallery/${file.name}`);
+
+        const img = new Image();
+        img.src = publicUrlData?.publicUrl || "";
+
+        return {
+          src: publicUrlData?.publicUrl || "",
+          title: getTitleFromFileName(file.name),
+          description: getTitleFromFileName2(file.name),
+        };
+      });
+
+      return Promise.all(imagePromises);
+    } catch (err) {
+      console.error("Error en fetchImages:", err);
       return [];
     }
-
-    const validFiles = data.filter(
-      (file) => file.name !== ".emptyFolderPlaceholder"
-    );
-
-    const imagePromises = validFiles.map(async (file) => {
-      const { data: publicUrlData } = await supabase.storage
-        .from("Greek")
-        .getPublicUrl(`Gallery/${file.name}`);
-      return {
-        src: publicUrlData?.publicUrl || "",
-        title: getTitleFromFileName(file.name),
-        description: getTitleFromFileName2(file.name),
-      };
-    });
-
-    return Promise.all(imagePromises);
-  }, []); // Dependencias vacías porque no usamos estados externos.
+  }, []);
 
   useEffect(() => {
     const loadImages = async () => {
@@ -103,14 +111,21 @@ const GridComponent = () => {
   };
 
   const handleNextSet = () => {
-    setCurrentSet((prevSet) => (prevSet + 1) % Math.ceil(images.length / 6));
+    setIsSetLoading(true);
+    setTimeout(() => {
+      setCurrentSet((prevSet) => (prevSet + 1) % Math.ceil(images.length / 6));
+      setIsSetLoading(false);
+    }, 300); // Simular una demora corta
   };
 
   const handlePreviousSet = () => {
-    setCurrentSet((prevSet) => (prevSet - 1 + Math.ceil(images.length / 6)) % Math.ceil(images.length / 6));
+    setIsSetLoading(true);
+    setTimeout(() => {
+      setCurrentSet((prevSet) => (prevSet - 1 + Math.ceil(images.length / 6)) % Math.ceil(images.length / 6));
+      setIsSetLoading(false);
+    }, 300); // Simular una demora corta
   };
 
-  // Memorización del conjunto actual de imágenes
   const imagesToDisplay = useMemo(
     () => images.slice(currentSet * 6, (currentSet + 1) * 6),
     [images, currentSet]
@@ -126,6 +141,10 @@ const GridComponent = () => {
         <Typography variant="h6" color="#fff" textAlign="center">
           No se encontraron imágenes disponibles.
         </Typography>
+      ) : isSetLoading ? ( // Mostrar loader mientras se navega entre conjuntos
+        <Box display="flex" justifyContent="center" alignItems="center" height="400px">
+          <CircularProgress size={40} sx={{ color: "#32CD32" }} />
+        </Box>
       ) : (
         <Grid container spacing={2} justifyContent="center">
           {imagesToDisplay.map((image, index) => (
@@ -152,7 +171,7 @@ const GridComponent = () => {
       <Box textAlign="center" mt={4} display="flex" justifyContent="center" gap={2}>
         <IconButton
           onClick={handlePreviousSet}
-          disabled={isLoading || images.length === 0}
+          disabled={isLoading || images.length === 0 || isSetLoading}
           sx={{
             backgroundColor: "#32CD32",
             color: "#000",
@@ -163,7 +182,7 @@ const GridComponent = () => {
         </IconButton>
         <IconButton
           onClick={handleNextSet}
-          disabled={isLoading || images.length === 0}
+          disabled={isLoading || images.length === 0 || isSetLoading}
           sx={{
             backgroundColor: "#32CD32",
             color: "#000",
@@ -216,5 +235,6 @@ const GridComponent = () => {
     </Box>
   );
 };
+
 
 export default GridComponent;
