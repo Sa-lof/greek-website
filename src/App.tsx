@@ -40,67 +40,83 @@ function App() {
       <Box
   sx={{
     backgroundImage: `url(${backgroundImages[currentIndex]})`,
-    backgroundSize: "contain",
-    backgroundPosition:
-      backgroundImages[currentIndex] === background1
-        ? "right"
-        : backgroundImages[currentIndex] === background4
-        ? "left"
-        : "center",
+    backgroundSize: "cover", // Cambiado a 'cover' para un ajuste más responsivo
+    backgroundPosition: "center", // Centrado por defecto
     backgroundRepeat: "no-repeat",
     width: "100%",
-    height: "100vh",
+    height: { xs: "85vh", sm: "105vh", md: "100h", lg:"100vh" }, // Ajusta la altura en pantallas pequeñas
+    display: "flex", // Asegura que los hijos estén alineados
+    flexDirection: "column", // Apila los elementos verticalmente
+    alignItems: "center", // Centra horizontalmente
+    justifyContent: "center", // Centra verticalmente
+    padding: { xs: 2, md: 0 }, // Espaciado interno para pantallas pequeñas
   }}
 >
   <Carousel currentIndex={currentIndex} />
-  <MusicPlayer />
+  <Box
+    sx={{
+      width: { xs: "100%", sm: "80%", md: "100%" }, // Ancho responsivo para el reproductor
+      marginTop: { xs: 2, md: 4 }, // Margen superior para espaciado
+    }}
+  >
+    <MusicPlayer />
+  </Box>
 </Box>
-
       <About />
       <GridComponent />
 
       <Box mt={15} mb={10}>
-        <CitySlider
-          cities={[
-            "Apotheke",
-            "LooLoo",
-            "Cincodoce",
-            "Standard Gold",
-            "Belive Acapulco",
-            "Hart",
-            "Florida Nightclub",
-            "Foro Escarabajo",
-            "Atenea Barcelona",
-            "La Cuspide",
-            "CLUBBING",
-            "OUTSIDE",
-            "Elements Sessions",
-            "School Of Beats",
-            "Casa Roma",
-            "+30 eventos privados"
-          ]}
-        />
-        <CitySlider
-          cities={[
-            "Florida Nightclub",
-            "Foro Escarabajo",
-            "Casa Roma",
-            "+30 eventos privados",
-            "Atenea Barcelona",
-            "OUTSIDE",
-            "Apotheke",
-            "LooLoo",
-            "Cincodoce",
-            "Standard Gold",
-            "Belive Acapulco",
-            "Hart",
-            "Elements Sessions",
-            "School Of Beats",   
-            "La Cuspide",
-            "CLUBBING",      
-          ]}
-        />
-      </Box>
+  {/* Primer carrusel siempre visible */}
+  <CitySlider
+    cities={[
+      "Apotheke",
+      "LooLoo",
+      "Cincodoce",
+      "Standard Gold",
+      "Belive Acapulco",
+      "Hart",
+      "Florida Nightclub",
+      "Foro Escarabajo",
+      "Atenea Barcelona",
+      "La Cuspide",
+      "CLUBBING",
+      "OUTSIDE",
+      "Elements Sessions",
+      "School Of Beats",
+      "Casa Roma",
+      "+30 eventos privados",
+    ]}
+  />
+
+  {/* Segundo carrusel oculto en pantallas pequeñas */}
+  <Box
+    sx={{
+      display: { xs: "none", md: "block" }, // Ocultar en xs y sm, mostrar en md y superior
+    }}
+  >
+    <CitySlider
+      cities={[
+        "Florida Nightclub",
+        "Foro Escarabajo",
+        "Casa Roma",
+        "+30 eventos privados",
+        "Atenea Barcelona",
+        "OUTSIDE",
+        "Apotheke",
+        "LooLoo",
+        "Cincodoce",
+        "Standard Gold",
+        "Belive Acapulco",
+        "Hart",
+        "Elements Sessions",
+        "School Of Beats",
+        "La Cuspide",
+        "CLUBBING",
+      ]}
+    />
+  </Box>
+</Box>
+
 
       <Pricing
         pricingData={[

@@ -5,7 +5,7 @@ import PauseIcon from "@mui/icons-material/Pause";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import sample from "../../assets/music/SHOT.mp3";
-
+import imagen1 from "../../assets/images/home/WhatsApp Image 2024-11-24 at 00.21.48.jpeg"
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -48,6 +48,7 @@ const MusicPlayer = () => {
           width: { xs: "100%", sm: "80%", md: "60%", lg: "60%" },
           flexDirection: { xs: "column", sm: "row" },
         }}
+        
       >
         <Box
           bgcolor="#cfcfcf"
@@ -62,7 +63,7 @@ const MusicPlayer = () => {
           overflow="hidden"
         >
           <img
-            src="/path/to/your-image.jpg"
+            src={imagen1}
             alt="Cover"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />

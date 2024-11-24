@@ -2,25 +2,26 @@
 import React from "react";
 import { Grid, Typography, Button, Card, CardContent } from "@mui/material";
 
-interface SlidesProps {
-  alignment?: "right" | "left";
-}
-
 const leftCardData = {
   title: "DJ GREEK",
   description:
     "Más que música, Greek es un concepto que transforma cada evento. Con un estilo 'Open Format', cada presentación es una experiencia única.",
-  buttonText: "Conóceme",
+  buttonText: "Contáctame",
 };
 
 const rightCardData = {
   title: "DJ GREEK",
   description:
     "Con seis años de trayectoria y un magnetismo único, Greek es para quienes buscan algo extraordinario. Una experiencia inolvidable.",
-  buttonText: "Explora Más",
+  buttonText: "Contáctame",
 };
 
-const Slides: React.FC<SlidesProps> = ({ alignment = "left" }) => {
+interface SlidesProps {
+  alignment?: "right" | "left";
+  onContactClick?: () => void; // Nueva prop para manejar el clic
+}
+
+const Slides: React.FC<SlidesProps> = ({ alignment = "left", onContactClick }) => {
   const isLeftAligned = alignment === "left";
   const cardData = isLeftAligned ? leftCardData : rightCardData;
 
@@ -35,7 +36,7 @@ const Slides: React.FC<SlidesProps> = ({ alignment = "left" }) => {
         sx={{
           textAlign: isLeftAligned ? "left" : "right",
           padding: "16px",
-          overflow: "auto", // Desplazamiento si es necesario
+          overflow: "auto",
         }}
       >
         <Card
@@ -81,6 +82,7 @@ const Slides: React.FC<SlidesProps> = ({ alignment = "left" }) => {
                 borderRadius: "10px",
                 ":hover": { backgroundColor: "#ddd" },
               }}
+              onClick={onContactClick} // Llama a la función pasada como prop
             >
               {cardData.buttonText}
             </Button>
@@ -100,8 +102,7 @@ const Slides: React.FC<SlidesProps> = ({ alignment = "left" }) => {
           alignItems: "center",
           padding: "16px",
         }}
-      >
-      </Grid>
+      ></Grid>
     </Grid>
   );
 };

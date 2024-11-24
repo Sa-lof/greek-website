@@ -1,15 +1,18 @@
-// SlideCenter.tsx
 import React from "react";
 import { Box, Typography, Button, Card, CardContent } from "@mui/material";
+
+interface SlideCenterProps {
+  onContactClick?: () => void; // Nueva prop para manejar el clic
+}
 
 const cardData = {
   title: "DJ GREEK",
   description:
     "No se trata de cumplir expectativas; se trata de romperlas. Eso es Greek.",
-  buttonText: "Conóceme",
+  buttonText: "Contáctame",
 };
 
-const SlideCenter: React.FC = () => {
+const SlideCenter: React.FC<SlideCenterProps> = ({ onContactClick }) => {
   return (
     <Box
       sx={{
@@ -70,6 +73,7 @@ const SlideCenter: React.FC = () => {
               borderRadius: "10px",
               ":hover": { backgroundColor: "#ddd" },
             }}
+            onClick={onContactClick} // Llama a la función pasada como prop
           >
             {cardData.buttonText}
           </Button>
@@ -78,6 +82,5 @@ const SlideCenter: React.FC = () => {
     </Box>
   );
 };
-
 
 export default SlideCenter;
