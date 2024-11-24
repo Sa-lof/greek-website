@@ -35,24 +35,6 @@ const GridComponent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isSetLoading, setIsSetLoading] = useState(false); // Nuevo estado para el loader de navegación
 
-  const getTitleFromFileName = (fileName: string): string => {
-    const titlesMap: Record<string, string> = {
-      "g-47.jpeg": "Evento 1",
-      "Grik-34.jpeg": "Evento2",
-      "image3.jpg": "Título personalizado 3",
-    };
-    return titlesMap[fileName] || fileName.split(".")[0];
-  };
-
-  const getTitleFromFileName2 = (fileName: string): string => {
-    const titlesMap: Record<string, string> = {
-      "g-47.jpeg": "Descripcion Evento 1",
-      "Grik-34.jpeg": "Descripcion Evento2",
-      "image3.jpg": "Título personalizado 3",
-    };
-    return titlesMap[fileName] || fileName.split(".")[0];
-  };
-
   const fetchImages = useCallback(async () => {
     try {
       const { data, error } = await supabase.storage
@@ -77,9 +59,7 @@ const GridComponent = () => {
         img.src = publicUrlData?.publicUrl || "";
 
         return {
-          src: publicUrlData?.publicUrl || "",
-          title: getTitleFromFileName(file.name),
-          description: getTitleFromFileName2(file.name),
+          src: publicUrlData?.publicUrl || ""
         };
       });
 
@@ -204,7 +184,7 @@ const GridComponent = () => {
               textAlign: "center",
               color: "#FFFFFF",
               height: "400px",
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${selectedImage.src})`,
+              backgroundImage: `url(${selectedImage.src})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               p: 2,
@@ -221,14 +201,6 @@ const GridComponent = () => {
             >
               <CloseIcon />
             </IconButton>
-            <Box sx={{ position: "relative", zIndex: 1 }}>
-              <Typography variant="h5" fontWeight="bold" color="#2FD510" mb={1}>
-                {selectedImage.title}
-              </Typography>
-              <Typography variant="body1" color="#FFFFFF">
-                {selectedImage.description}
-              </Typography>
-            </Box>
           </DialogContent>
         )}
       </Dialog>
