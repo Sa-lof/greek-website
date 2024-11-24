@@ -11,23 +11,40 @@ const Footer: React.FC = () => {
         textAlign: "center",
         width: "100%",
         height: "400px",
-        backgroundImage: `url(${imagen1})`, // Corregido: Asegúrate de usar `url()`
+        backgroundImage: `url(${imagen1})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        overflow: "hidden", // Evita contenido fuera de límites
+        top:60
       }}
     >
+      {/* Overlay oscuro */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0, 0, 0, 0.5)", // Oscurecer la imagen
+          zIndex: 1, // Asegúrate de que el texto esté visible encima de este fondo
+        }}
+      />
+
+      {/* Contenido principal */}
       <Box
         sx={{
           position: "absolute",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
+          zIndex: 2, // Coloca el texto encima del overlay
         }}
       >
         <Typography
           variant="h1"
           sx={{
-            fontSize: { xs: "48px", md: "80px" },
+            fontSize: { xs: "48px", md: "200px" },
             fontWeight: "bold",
             color: "transparent",
             WebkitTextStroke: "2px #32CD32",
@@ -38,6 +55,7 @@ const Footer: React.FC = () => {
         </Typography>
       </Box>
 
+      {/* Footer inferior */}
       <Box
         sx={{
           position: "absolute",
@@ -48,22 +66,24 @@ const Footer: React.FC = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          zIndex: 2, // Asegúrate de que este texto esté sobre el overlay
         }}
       >
-        <Typography variant="body2" sx={{ fontSize: "14px" }}>
+        <Typography variant="body2" sx={{ fontSize: "18px", fontWeight: "bold",}}>
           © 2024 DJ Greek
         </Typography>
 
-        <Typography variant="body2" sx={{ fontSize: "14px" }}>
+        <Typography variant="body2" sx={{ fontSize: "18px", fontWeight: "bold",}}>
           Desarrollado por Amoxil Web Developers
         </Typography>
 
         <Typography
           variant="body2"
           sx={{
-            fontSize: "14px",
+            fontSize: "18px",
             textDecoration: "underline",
             cursor: "pointer",
+            fontWeight: "bold",
           }}
         >
           Política de Privacidad

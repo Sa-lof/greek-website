@@ -32,9 +32,7 @@ const About = () => {
             fontSize={{ xs: "16px", sm: "18px" }}
             px={{ xs: 2, md: 10 }}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur hendrerit feugiat dignissim.
-            Nam commodo aliquet dolor quis vestibulum. Sed quis porttitor arcu. Quisque commodo vel quam nec
-            eleifend. Nam orci mi, egestas non ipsum non, imperdiet ultrices massa.
+            Greek, con su estilo en el House y la versatilidad del ‘Open Format’, se destaca como un DJ capaz de crear experiencias memorables y adaptarse a cualquier evento. Su distintivo verde neón evoca energía y renovación, electrificando cada ambiente y dejando una huella inolvidable. Formado en prestigiosas instituciones como Virtuality Audio y Beat System, y guiado por mentores de renombre como Bass Kleph y Travis Emmons, Greek consolida su lugar en la escena. Su lanzamiento internacional Shot con Kibbutz Records en Portugal refuerza su impacto global. Con más de seis años de experiencia en eventos privados y clubes, Greek transforma cada escenario en un espectáculo único, donde su energía y el verde neón invitan a disfrutar al máximo.
           </Typography>
         </Grid>
 
