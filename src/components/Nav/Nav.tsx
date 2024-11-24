@@ -7,7 +7,7 @@ import { AiOutlineTikTok } from "react-icons/ai";
 
 const Navbar: React.FC = () => {
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: '#121212', boxShadow:"none" }}>
+    <AppBar position="sticky" sx={{ backgroundColor: '#000000', boxShadow:"none" }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', padding: 2 }}>
         <Typography
           variant="h6"

@@ -2,31 +2,28 @@
 import React from "react";
 import { Box, Typography, Button, Card, CardContent } from "@mui/material";
 
-interface SlideCenterProps {
-  backgroundImage: string;
-}
-
 const cardData = {
   title: "DJ GREEK",
   description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur hendrerit feugiat dignissim. Nam commodo aliquet dolor quis vestibulum. Sed quis porttitor arcu.",
+    "No se trata de cumplir expectativas; se trata de romperlas. Eso es Greek.",
   buttonText: "Conóceme",
 };
 
-const SlideCenter: React.FC<SlideCenterProps> = ({ backgroundImage }) => {
+const SlideCenter: React.FC = () => {
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         color: "#FBFBFB",
         textAlign: "center",
-        height:"70vh"
+        height: "100%", // Asegura que tome toda la altura disponible del slide
+        overflow: "auto", // Habilita desplazamiento si es necesario
+        padding: "0 16px",
       }}
     >
       <Card
@@ -36,21 +33,30 @@ const SlideCenter: React.FC<SlideCenterProps> = ({ backgroundImage }) => {
           fontFamily: "Jost, sans-serif",
           boxShadow: "none",
           padding: 4,
+          maxWidth: "800px",
+          width: "100%",
         }}
       >
         <CardContent>
           <Typography
             variant="h1"
             fontWeight={900}
-            fontSize={"128px"}
+            sx={{
+              fontSize: { xs: "50px", sm: "60px", md: "70px", lg: "80px" },
+              lineHeight: 1.2, // Reduce el espacio entre líneas
+            }}
             gutterBottom
           >
             {cardData.title}
           </Typography>
           <Typography
             variant="body1"
-            fontSize={"28px"}
-            sx={{ color: "#FBFBFB", mb: 4, fontWeight: 500 }}
+            sx={{
+              color: "#FBFBFB",
+              fontSize: { xs: "14px", sm: "16px", md: "18px", lg: "20px" },
+              mb: 4,
+              fontWeight: 500,
+            }}
           >
             {cardData.description}
           </Typography>
@@ -59,7 +65,7 @@ const SlideCenter: React.FC<SlideCenterProps> = ({ backgroundImage }) => {
             sx={{
               backgroundColor: "#FBFBFB",
               color: "#121212",
-              fontSize: "16px",
+              fontSize: { xs: "12px", sm: "14px", md: "16px" },
               fontWeight: "bold",
               borderRadius: "10px",
               ":hover": { backgroundColor: "#ddd" },
@@ -72,5 +78,6 @@ const SlideCenter: React.FC<SlideCenterProps> = ({ backgroundImage }) => {
     </Box>
   );
 };
+
 
 export default SlideCenter;

@@ -1,37 +1,44 @@
-// Carousel.tsx
-import React, { useState, useEffect } from 'react';
-import { Box } from '@mui/material';
-import { motion } from 'framer-motion';
-import Slides from '../../components/Slides/Slides';
-import SlideCenter from '../../components/SlideCenter/SlideCenter';
+import React from "react";
+import { Box } from "@mui/material";
+import { motion } from "framer-motion";
+import Slides from "../../components/Slides/Slides";
+import SlideCenter from "../../components/SlideCenter/SlideCenter";
 
-const Carousel: React.FC = () => {
-  const [index, setIndex] = useState(0);
+interface CarouselProps {
+  currentIndex: number; // Índice sincronizado con el fondo
+}
 
+const Carousel: React.FC<CarouselProps> = ({ currentIndex }) => {
   const cardComponents = [
-    <Slides alignment="left" imageSrc="/path/to/image1.jpg" />,
-    <SlideCenter backgroundImage="/path/to/background.jpg" />,
-    <Slides alignment="right" imageSrc="/path/to/image2.jpg" />,
+    <Slides alignment="left" />,
+    <SlideCenter />,
+    <Slides alignment="right" />,
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prevIndex) => (prevIndex + 1) % cardComponents.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [cardComponents.length]);
-
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box
+      sx={{
+        width: "100%",
+        height: {
+          xs: "105vh",
+          sm: "70vh",
+          md: "60vh",
+        },
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+      }}
+    >
       <motion.div
-        key={index}
+        key={currentIndex}
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: -100 }}
         transition={{ duration: 0.5 }}
+        style={{ width: "100%", height: "100%" }}
       >
-        {cardComponents[index]}
+        {cardComponents[currentIndex]}
       </motion.div>
     </Box>
   );

@@ -56,40 +56,58 @@ const PricingCard: React.FC<PricingCardProps> = ({
   };
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.addEventListener("timeupdate", updateProgress);
-      audioRef.current.addEventListener("loadedmetadata", updateProgress);
-      return () => {
-        audioRef.current?.removeEventListener("timeupdate", updateProgress);
-        audioRef.current?.removeEventListener("loadedmetadata", updateProgress);
-      };
+    const audioElement = audioRef.current;
+  
+    if (audioElement) {
+      audioElement.addEventListener("timeupdate", updateProgress);
+      audioElement.addEventListener("loadedmetadata", updateProgress);
     }
-  }, []);
+  
+    return () => {
+      if (audioElement) {
+        audioElement.removeEventListener("timeupdate", updateProgress);
+        audioElement.removeEventListener("loadedmetadata", updateProgress);
+      }
+    };
+  }, []);  
 
   return (
-    <Grid container spacing={2} alignItems="center" pr={30} pl={30} pb={3}>
+    <Grid
+      container
+      spacing={2}
+      alignItems="center"
+      sx={{
+        padding: { xs: 2, sm: 3, md: 5 },
+        textAlign: { xs: "center", sm: "left" },
+      }}
+    >
       {/* Left Side Card */}
       <Grid
         item
         xs={12}
-        sm={6}
+        md={6}
         display="flex"
         justifyContent="center"
-        padding={5}
+        sx={{ padding: { xs: 2, sm: 3 } }}
       >
         <Card
           sx={{
-            backgroundColor: "#121212",
+            backgroundColor: "#000000",
             border: "2px solid #2FD510",
-            borderRadius: "30px",
-            padding: 2
+            borderRadius: "20px",
+            width: { xs: "100%", sm: "80%", md: "70%" },
+            padding: 2,
           }}
         >
           <CardMedia
             component="img"
             image={imageUrl}
             alt="Package Image"
-            sx={{ height: 300, borderRadius: "30px" }}
+            sx={{
+              height: { xs: 200, sm: 250, md: 300 },
+              borderRadius: "20px",
+              objectFit: "cover",
+            }}
           />
           <CardContent
             sx={{
@@ -103,7 +121,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
               sx={{
                 fontWeight: 700,
                 color: "#fff",
-                fontSize: "32px",
+                fontSize: { xs: "24px", sm: "28px", md: "32px" },
                 textAlign: "center",
               }}
             >
@@ -113,9 +131,8 @@ const PricingCard: React.FC<PricingCardProps> = ({
               variant="text"
               sx={{
                 color: "#ffffff",
-                fontSize: "15px",
+                fontSize: { xs: "14px", sm: "15px" },
                 textTransform: "none",
-                bottom: 0,
                 display: "flex",
                 alignItems: "center",
                 "&:hover": {
@@ -132,9 +149,8 @@ const PricingCard: React.FC<PricingCardProps> = ({
       </Grid>
 
       {/* Right Side Content Section */}
-      <Grid item xs={12} sm={6} sx={{ maxWidth: 300 }}>
+      <Grid item xs={12} md={6}>
         <Box sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          {/* Items List */}
           {items.map((item, index) => (
             <Typography
               key={index}
@@ -142,21 +158,24 @@ const PricingCard: React.FC<PricingCardProps> = ({
               sx={{
                 fontWeight: 700,
                 color: index % 2 === 0 ? "#2FD510" : "#fff",
-                fontSize: "32px",
+                fontSize: { xs: "20px", sm: "24px", md: "28px" },
               }}
             >
               {index + 1}. {item}
             </Typography>
           ))}
-
           <Typography
             variant="h6"
-            sx={{ fontWeight: 700, marginTop: "10px", fontSize: "24px" }}
+            sx={{
+              fontWeight: 700,
+              marginTop: "10px",
+              fontSize: { xs: "18px", sm: "22px", md: "24px" },
+            }}
           >
             {packageName}
           </Typography>
 
-          {/* Audio Player with Progress */}
+          {/* Audio Player */}
           <Box
             sx={{
               display: "flex",
@@ -194,8 +213,6 @@ const PricingCard: React.FC<PricingCardProps> = ({
               <SkipNextIcon sx={{ color: "#fff", fontSize: "20px" }} />
             </IconButton>
           </Box>
-
-          {/* Progress Line */}
           <Box sx={{ width: "100%" }}>
             <Box
               component="progress"

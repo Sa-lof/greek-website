@@ -4,21 +4,28 @@ import { Grid, Typography, Button, Card, CardContent } from "@mui/material";
 
 interface SlidesProps {
   alignment?: "right" | "left";
-  imageSrc: string;
 }
 
-const cardData = {
+const leftCardData = {
   title: "DJ GREEK",
   description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur hendrerit feugiat dignissim. Nam commodo aliquet dolor quis vestibulum. Sed quis porttitor arcu.",
+    "Más que música, Greek es un concepto que transforma cada evento. Con un estilo 'Open Format', cada presentación es una experiencia única.",
   buttonText: "Conóceme",
 };
 
-const Slides: React.FC<SlidesProps> = ({ alignment = "left", imageSrc }) => {
+const rightCardData = {
+  title: "DJ GREEK",
+  description:
+    "Con seis años de trayectoria y un magnetismo único, Greek es para quienes buscan algo extraordinario. Una experiencia inolvidable.",
+  buttonText: "Explora Más",
+};
+
+const Slides: React.FC<SlidesProps> = ({ alignment = "left" }) => {
   const isLeftAligned = alignment === "left";
+  const cardData = isLeftAligned ? leftCardData : rightCardData;
 
   return (
-    <Grid container spacing={2} alignItems="center" height={"70vh"}>
+    <Grid container spacing={2} alignItems="center" sx={{ height: "100%" }}>
       <Grid
         item
         xs={12}
@@ -27,31 +34,40 @@ const Slides: React.FC<SlidesProps> = ({ alignment = "left", imageSrc }) => {
         order={{ xs: 2, sm: isLeftAligned ? 1 : 2 }}
         sx={{
           textAlign: isLeftAligned ? "left" : "right",
-          justifyContent: isLeftAligned ? "flex-start" : "flex-end",
+          padding: "16px",
+          overflow: "auto", // Desplazamiento si es necesario
         }}
       >
         <Card
           sx={{
             backgroundColor: "inherit",
             color: "#32CD32",
-            fontFamily: "Jost, sans-serif",
             boxShadow: "none",
             padding: 4,
+            maxWidth: "800px",
+            width: "100%",
           }}
         >
           <CardContent>
             <Typography
               variant="h1"
               fontWeight={900}
-              fontSize={"128px"}
+              sx={{
+                fontSize: { xs: "50px", sm: "60px", md: "70px", lg: "80px" },
+                lineHeight: 1.2,
+              }}
               gutterBottom
             >
               {cardData.title}
             </Typography>
             <Typography
               variant="body1"
-              fontSize={"28px"}
-              sx={{ color: "#FBFBFB", mb: 4, fontWeight: 500  }}
+              sx={{
+                color: "#FBFBFB",
+                fontSize: { xs: "14px", sm: "16px", md: "18px", lg: "20px" },
+                mb: 4,
+                fontWeight: 500,
+              }}
             >
               {cardData.description}
             </Typography>
@@ -60,7 +76,7 @@ const Slides: React.FC<SlidesProps> = ({ alignment = "left", imageSrc }) => {
               sx={{
                 backgroundColor: "#FBFBFB",
                 color: "#121212",
-                fontSize: "16px",
+                fontSize: { xs: "12px", sm: "14px", md: "16px" },
                 fontWeight: "bold",
                 borderRadius: "10px",
                 ":hover": { backgroundColor: "#ddd" },
@@ -82,21 +98,12 @@ const Slides: React.FC<SlidesProps> = ({ alignment = "left", imageSrc }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          padding: "16px",
         }}
       >
-        <img
-          src={imageSrc}
-          alt="DJ GREEK"
-          width="500"
-          height="500"
-          style={{ borderRadius: "8px", objectFit: "cover" }}
-        />
       </Grid>
     </Grid>
   );
 };
 
 export default Slides;
-
-
-
