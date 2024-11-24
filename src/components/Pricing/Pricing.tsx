@@ -9,6 +9,7 @@ interface PricingData {
   packageName: string;
   djName: string;
   audioSrc: string;
+  moreSpecifications: string;
 }
 
 interface PricingProps {
@@ -52,7 +53,7 @@ const Pricing: React.FC<PricingProps> = ({ pricingData }) => {
           packageName={data.packageName}
           djName={data.djName}
           audioSrc={data.audioSrc}
-        />
+          moreSpecifications={data.moreSpecifications}        />
       ))}
     </Box>
   );

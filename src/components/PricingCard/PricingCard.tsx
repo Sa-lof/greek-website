@@ -8,12 +8,14 @@ import {
   Card,
   CardMedia,
   CardContent,
+  Modal,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import InfoIcon from "@mui/icons-material/Info";
 
 interface PricingCardProps {
   imageUrl: string;
@@ -22,6 +24,7 @@ interface PricingCardProps {
   packageName: string;
   djName: string;
   audioSrc: string;
+  moreSpecifications: string; // New prop for additional information
 }
 
 const PricingCard: React.FC<PricingCardProps> = ({
@@ -31,10 +34,12 @@ const PricingCard: React.FC<PricingCardProps> = ({
   packageName,
   djName,
   audioSrc,
+  moreSpecifications, // Accept additional information
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
   const audioRef = React.useRef<HTMLAudioElement>(null);
 
   const togglePlay = () => {
@@ -42,7 +47,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
       if (isPlaying) {
         audioRef.current.pause();
       } else {
-        audioRef.current.pause();
+        audioRef.current.play();
       }
       setIsPlaying(!isPlaying);
     }
@@ -57,19 +62,19 @@ const PricingCard: React.FC<PricingCardProps> = ({
 
   useEffect(() => {
     const audioElement = audioRef.current;
-  
+
     if (audioElement) {
       audioElement.addEventListener("timeupdate", updateProgress);
       audioElement.addEventListener("loadedmetadata", updateProgress);
     }
-  
+
     return () => {
       if (audioElement) {
         audioElement.removeEventListener("timeupdate", updateProgress);
         audioElement.removeEventListener("loadedmetadata", updateProgress);
       }
     };
-  }, []);  
+  }, []);
 
   return (
     <Grid
@@ -128,28 +133,45 @@ const PricingCard: React.FC<PricingCardProps> = ({
               {price}/MXN
             </Typography>
             <Button
-  variant="text"
-  sx={{
-    color: "#ffffff",
-    fontSize: { xs: "14px", sm: "20px" },
-    textTransform: "none",
-    display: "flex",
-    alignItems: "center",
-    "&:hover": {
-      backgroundColor: "#121212",
-      color: "#2FD510",
-    },
-  }}
-  onClick={() => {
-    const message = `Hola, me interesa contratar el plan "${packageName}" con un precio de ${price}/MXN..`;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/525548575825?text=${encodedMessage}`;
-    window.open(whatsappUrl, "_blank");
-  }}
->
-  Contratar
-  <AddBoxIcon sx={{ marginLeft: 0.5, fontSize: "18px" }} />
-</Button>
+              variant="text"
+              sx={{
+                color: "#ffffff",
+                fontSize: { xs: "14px", sm: "20px" },
+                textTransform: "none",
+                display: "flex",
+                alignItems: "center",
+                "&:hover": {
+                  backgroundColor: "#121212",
+                  color: "#2FD510",
+                },
+              }}
+              onClick={() => {
+                const message = `Hola, me interesa contratar el plan "${packageName}" con un precio de ${price}/MXN..`;
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappUrl = `https://wa.me/525548575825?text=${encodedMessage}`;
+                window.open(whatsappUrl, "_blank");
+              }}
+            >
+              Contratar
+              <AddBoxIcon sx={{ marginLeft: 0.5, fontSize: "18px" }} />
+            </Button>
+            <Button
+              variant="outlined"
+              sx={{
+                color: "#ffffff",
+                borderColor: "#2FD510",
+                marginTop: 1,
+                "&:hover": {
+                  borderColor: "#2FD510",
+                  backgroundColor: "#121212",
+                  color: "#2FD510",
+                },
+              }}
+              startIcon={<InfoIcon />}
+              onClick={() => setIsModalOpen(true)} // Open modal
+            >
+              Más Info
+            </Button>
           </CardContent>
         </Card>
       </Grid>
@@ -251,6 +273,92 @@ const PricingCard: React.FC<PricingCardProps> = ({
           </Typography>
         </Box>
       </Grid>
+
+      {/* Modal for More Info */}
+      <Modal
+  open={isModalOpen}
+  onClose={() => setIsModalOpen(false)}
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+  <Box
+    sx={{
+      backgroundColor: "#121212",
+      color: "#fff",
+      padding: 4,
+      borderRadius: "15px",
+      maxWidth: "700px",
+      width: "90%",
+      maxHeight: "80vh",
+      overflowY: "auto", // Habilita scroll si el contenido es extenso
+      boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.4)", // Sombra sutil
+    }}
+  >
+    <Typography
+      variant="h5"
+      sx={{
+        marginBottom: 3,
+        fontWeight: 700,
+        color: "#2FD510",
+        textAlign: "center",
+      }}
+    >
+      Más Especificaciones
+    </Typography>
+    <Typography
+      variant="body1"
+      sx={{
+        marginBottom: 2,
+        lineHeight: 1.8,
+        fontSize: "16px",
+      }}
+    >
+      {moreSpecifications.split("\n").map((line, index) => (
+        <React.Fragment key={index}>
+          {line.trim() ? (
+            <Typography
+              component="p"
+              sx={{
+                marginBottom: 1,
+                fontSize: "15px",
+                color: line.startsWith("**") ? "#2FD510" : "#fff",
+                fontWeight: line.startsWith("**") ? 700 : 400,
+              }}
+            >
+              {line.replace(/\*\*/g, "")}
+            </Typography>
+          ) : (
+            <br />
+          )}
+        </React.Fragment>
+      ))}
+    </Typography>
+    <Button
+      onClick={() => {
+        const message = `Hola, me interesa contratar el plan "${packageName}" con un precio de ${price}/MXN..`;
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/525548575825?text=${encodedMessage}`;
+        window.open(whatsappUrl, "_blank");
+      }}
+      variant="contained"
+      sx={{
+        marginTop: 3,
+        backgroundColor: "#2FD510",
+        color: "#000",
+        "&:hover": {
+          backgroundColor: "#24a10a",
+        },
+      }}
+    >
+      Contratar
+    </Button>
+  </Box>
+</Modal>
+
+
     </Grid>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import {
   Box,
   Grid,
@@ -34,8 +34,27 @@ const GridComponent = () => {
   const [currentSet, setCurrentSet] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Función para cargar imágenes desde Supabase
-  const fetchImages = async () => {
+  const getTitleFromFileName = (fileName: string): string => {
+    const titlesMap: Record<string, string> = {
+      "g-47.jpeg": "Evento 1",
+      "Grik-34.jpeg": "Evento2",
+      "image3.jpg": "Título personalizado 3",
+    };
+  
+    return titlesMap[fileName] || fileName.split(".")[0]; 
+  };
+
+  const getTitleFromFileName2 = (fileName: string): string => {
+    const titlesMap: Record<string, string> = {
+      "g-47.jpeg": "Descripcion Evento 1",
+      "Grik-34.jpeg": "Descripcion Evento2",
+      "image3.jpg": "Título personalizado 3",
+    };
+  
+    return titlesMap[fileName] || fileName.split(".")[0];
+  };
+  
+  const fetchImages = useCallback(async () => {
     const { data, error } = await supabase.storage
       .from("Greek")
       .list("Gallery", { limit: 1000 });
@@ -45,22 +64,23 @@ const GridComponent = () => {
       return [];
     }
 
-    const validFiles = data.filter((file) => file.name !== ".emptyFolderPlaceholder");
+    const validFiles = data.filter(
+      (file) => file.name !== ".emptyFolderPlaceholder"
+    );
 
-    // Generar URLs públicas de manera paralela
     const imagePromises = validFiles.map(async (file) => {
       const { data: publicUrlData } = await supabase.storage
         .from("Greek")
         .getPublicUrl(`Gallery/${file.name}`);
       return {
         src: publicUrlData?.publicUrl || "",
-        title: file.name,
-        description: `Descripción de ${file.name}`,
+        title: getTitleFromFileName(file.name),
+        description: getTitleFromFileName2(file.name),
       };
     });
 
     return Promise.all(imagePromises);
-  };
+  }, []); // Dependencias vacías porque no usamos estados externos.
 
   useEffect(() => {
     const loadImages = async () => {
@@ -70,7 +90,7 @@ const GridComponent = () => {
       setIsLoading(false);
     };
     loadImages();
-  }, []);
+  }, [fetchImages]);
 
   const handleOpen = (image: Image) => {
     setSelectedImage(image);

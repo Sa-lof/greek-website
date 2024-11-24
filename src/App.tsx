@@ -118,35 +118,88 @@ function App() {
 </Box>
 
 
-      <Pricing
-        pricingData={[
-          {
-            imageUrl: pricing1,
-            price: "$300",
-            items: [
-              "Ideal para reuniones exclusivas, o celebraciones privadas.",
-              "Greek se encarga de todo: música, luces y sonido para crear una atmósfera personalizada.",
-              "Perfecto para hasta 120 personas, garantizando un ambiente lleno de energía.",
-              "Flexibilidad para adaptar la música a tu gusto con posibilidad de enviar una lista previa.",
-            ],
-            packageName: "GREEK EXCLUSIVE",
-            djName: "DJ GREEK",
-            audioSrc: "path/to/audio1.mp3",
-          },
-          {
-            imageUrl: pricing2,
-            price: "$300",
-            items: [
-              "Diseñado para el ambiente electrizante de los clubes.",
-              "Greek crea un set que mantiene a la multitud en movimiento toda la noche.",
-              "Interacción directa con la audiencia para mantener la pista de baile llena.",
-            ],
-            packageName: "CLUB ENERGY",
-            djName: "DJ GREEK",
-            audioSrc: "path/to/audio2.mp3",
-          },
-        ]}
-      />
+<Pricing
+  pricingData={[
+    {
+      imageUrl: pricing1,
+      price: "$1,000 por hora",
+      items: [
+        "Ideal para reuniones exclusivas, o celebraciones privadas.",
+        "Greek se encarga de todo: música, luces y sonido para crear una atmósfera personalizada.",
+        "Perfecto para hasta 120 personas, garantizando un ambiente lleno de energía.",
+        "Flexibilidad para adaptar la música a tu gusto con posibilidad de enviar una lista previa.",
+      ],
+      packageName: "GREEK EXCLUSIVE",
+      djName: "DJ GREEK",
+      audioSrc: "path/to/audio1.mp3",
+      moreSpecifications: `
+**Servicio Privado**  
+El servicio incluye luces, audio y DJ liderado por Greek, con capacidad para hasta 120 personas.  
+El número de asistentes no afecta la cotización. Si el cliente desea agregar su propio equipo, se integrará si es compatible, sin alterar el costo total.
+
+**Incluye:**  
+- Subwoofer y satélites: 2 unidades  
+- Parleds: 4 unidades  
+- Láser: 1 unidad (opcional)  
+- Máquina de humo: opcional (600 MXN adicionales)  
+- Letrero neón Ω: 1 unidad  
+- Controlador DJ: 1 unidad  
+- Mesa para DJ  
+
+**Tarifas:**  
+- $1,000 por hora durante las primeras cinco horas  
+- $1,400 por hora a partir de la sexta hora  
+
+**Consideraciones Previas al Evento:**  
+- Anticipo: Se requiere un anticipo del 50% del total cotizado para apartar la fecha. Este anticipo es no reembolsable en caso de cancelación. La reprogramación está sujeta a disponibilidad y acuerdo con Greek.  
+- Preparación: Greek llega al lugar una hora antes del inicio para instalar y hacer pruebas de audio, y necesita 45 minutos para desmontar al finalizar.  
+- Estacionamiento: Se requiere un espacio de estacionamiento reservado para el vehículo de Greek.
+- Staff: Greek estará acompañado de 1-3 personas de su staff, quienes actuarán profesionalmente, sin interactuar con los invitados más allá de su función.  
+- Playlist: Los clientes pueden enviar una lista de reproducción para orientar la línea musical deseada, incluyendo canciones específicas que quieran escuchar.  
+- Liquidación: El evento debe ser liquidado completamente al momento de la llegada de Greek para la instalación. Si no se ha liquidado, el evento no se llevará a cabo y Greek se retirará del lugar.
+      `,
+    },
+    {
+      imageUrl: pricing2,
+      price: "$4,000 por evento",
+      items: [
+        "Diseñado para el ambiente electrizante de los clubes.",
+        "Greek crea un set que mantiene a la multitud en movimiento toda la noche.",
+        "Interacción directa con la audiencia para mantener la pista de baile llena.",
+      ],
+      packageName: "CLUB ENERGY",
+      djName: "DJ GREEK",
+      audioSrc: "path/to/audio2.mp3",
+      moreSpecifications: `
+**Club**  
+- **Warm up:** 1,000 MXN (máximo 2 horas)  
+- **Main:** 4,000 MXN (máximo 6 horas)  
+
+**Requisitos Técnicos:**  
+- Mixer: mínimo dos canales, completamente funcional.
+- No Pioneer: Especificar marca y modelo para adaptar la configuración.    
+
+**Requisitos reproductores:**  
+  - Preferidos: Modelos CDJ-2000 o posteriores con función de hot cue.  
+  - Modelos All In One aceptados: XDJ-RX o controladores de una sola pieza (especificar modelo).  
+
+**Requisitos en la cabina:**  
+- Monitor personal necesario.  
+- Control de acceso en colaboración con otros DJs, gerentes, RP y Light Jockey.  
+- **Cortesía:** Botella de Bacardi blanco o tequila nacional (Main). 
+
+**Consideraciones Previas al Evento:**  
+- Anticipo: Se requiere un anticipo del 50% del total cotizado para apartar la fecha. Este anticipo es no reembolsable en caso de cancelación. La reprogramación está sujeta a disponibilidad y acuerdo con Greek.  
+- Preparación: Greek llega al lugar una hora antes del inicio para instalar y hacer pruebas de audio, y necesita 45 minutos para desmontar al finalizar.  
+- Estacionamiento: Se requiere un espacio de estacionamiento reservado para el vehículo de Greek.
+- Staff: Greek estará acompañado de 1-3 personas de su staff, quienes actuarán profesionalmente, sin interactuar con los invitados más allá de su función.  
+- Playlist: Los clientes pueden enviar una lista de reproducción para orientar la línea musical deseada, incluyendo canciones específicas que quieran escuchar.  
+- Liquidación: El evento debe ser liquidado completamente al momento de la llegada de Greek para la instalación. Si no se ha liquidado, el evento no se llevará a cabo y Greek se retirará del lugar.
+      `,
+    },
+  ]}
+/>
+
 
       <Profile />
       <FollowMe />
