@@ -17,13 +17,13 @@ const Navbar: React.FC = () => {
           DJ GREEK
         </Typography>
         <div>
-          <IconButton href="https://instagram.com" target="_blank" sx={{ color: '#2FD510', fontSize: "30px" }}>
+          <IconButton href="https://www.instagram.com/greek.06" target="_blank" sx={{ color: '#2FD510', fontSize: "30px" }}>
             <AiFillInstagram />
           </IconButton>
-          <IconButton href="https://youtube.com" target="_blank" sx={{ color: '#2FD510', fontSize: "30px"  }}>
+          <IconButton href="https://youtube.com/@greek6353?si=sAe8UKnaygHFW3Pq" target="_blank" sx={{ color: '#2FD510', fontSize: "30px"  }}>
             <AiFillYoutube />
           </IconButton>
-          <IconButton href="https://tiktok.com" target="_blank" sx={{ color: '#2FD510', fontSize: "30px"  }}>
+          <IconButton href="https://www.tiktok.com/@greektheofficial?is_from_webapp=1&sender_device=pc" target="_blank" sx={{ color: '#2FD510', fontSize: "30px"  }}>
             <AiOutlineTikTok />
           </IconButton>
         </div>

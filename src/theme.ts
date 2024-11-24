@@ -2,6 +2,18 @@
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          margin: 0,
+          padding: 0,
+          overflowX: "hidden", // Evita el deslizamiento horizontal
+          width: "100%",
+        },
+      },
+    },
+  },
   typography: {
     fontFamily: 'Jost, sans-serif',
   },

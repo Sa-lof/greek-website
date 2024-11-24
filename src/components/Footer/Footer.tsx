@@ -69,25 +69,31 @@ const Footer: React.FC = () => {
           zIndex: 2, // Asegúrate de que este texto esté sobre el overlay
         }}
       >
-        <Typography variant="body2" sx={{ fontSize: "18px", fontWeight: "bold",}}>
+        <Typography variant="body2" sx={{ fontSize: "14px",}}>
           © 2024 DJ Greek
         </Typography>
 
-        <Typography variant="body2" sx={{ fontSize: "18px", fontWeight: "bold",}}>
-          Desarrollado por Amoxil Web Developers
-        </Typography>
-
         <Typography
-          variant="body2"
-          sx={{
-            fontSize: "18px",
-            textDecoration: "underline",
-            cursor: "pointer",
-            fontWeight: "bold",
-          }}
-        >
-          Política de Privacidad
-        </Typography>
+  variant="body2"
+  sx={{ fontSize: "14px", textDecoration: "none", color: "inherit" }}
+  component="a"
+  href="https://amoxtli.tech/" // Reemplaza con la URL real
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Desarrollado por Amoxil Web Developers
+</Typography>
+
+<Typography
+  variant="body2"
+  sx={{ fontSize: "14px", textDecoration: "none", color: "inherit" }}
+  component="a"
+  href="https://amoxtli.tech/" // Reemplaza con la URL real
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Aviso de privacidad
+</Typography>
       </Box>
     </Box>
   );

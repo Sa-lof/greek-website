@@ -9,6 +9,7 @@ import {
   IconButton,
   Dialog,
   DialogContent,
+  CircularProgress,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -80,10 +81,12 @@ const fourthSet: Image[] = [
   { src: imagen24, title: "Evento 24", description: "Descripción del evento 24" },
 ];
 
+
 const GridComponent = () => {
   const [open, setOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<Image | null>(null);
   const [currentSet, setCurrentSet] = useState(0);
+  const [isLoading, setIsLoading] = useState(false); // Nuevo estado para loader
 
   const handleOpen = (image: Image) => {
     setSelectedImage(image);
@@ -96,11 +99,19 @@ const GridComponent = () => {
   };
 
   const handleNextSet = () => {
-    setCurrentSet((prevSet) => (prevSet + 1) % 4); // Cambia a 4 para manejar 4 conjuntos
+    setIsLoading(true);
+    setTimeout(() => {
+      setCurrentSet((prevSet) => (prevSet + 1) % 4);
+      setIsLoading(false);
+    }, 500); // Simula un retraso (500ms)
   };
 
   const handlePreviousSet = () => {
-    setCurrentSet((prevSet) => (prevSet - 1 + 4) % 4); // Cambia a 4 para manejar 4 conjuntos
+    setIsLoading(true);
+    setTimeout(() => {
+      setCurrentSet((prevSet) => (prevSet - 1 + 4) % 4);
+      setIsLoading(false);
+    }, 500); // Simula un retraso (500ms)
   };
 
   const imagesToDisplay =
@@ -114,33 +125,49 @@ const GridComponent = () => {
 
   return (
     <Box bgcolor="#000000" color="#fff" py={4} px={4}>
-      <Grid container spacing={2} justifyContent="center">
-        {imagesToDisplay.map((image, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card sx={{ borderRadius: "30px", overflow: "hidden" }}>
-              <CardActionArea onClick={() => handleOpen(image)}>
-                <CardMedia
-                  component="img"
-                  height="400"
-                  image={image.src}
-                  alt={image.title}
-                />
-              </CardActionArea>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      {isLoading ? (
+        <Box display="flex" justifyContent="center" alignItems="center" height="400px">
+          <CircularProgress size={60} sx={{ color: "#32CD32" }} />
+        </Box>
+      ) : (
+        <Grid container spacing={2} justifyContent="center">
+          {imagesToDisplay.map((image, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card sx={{ borderRadius: "30px", overflow: "hidden" }}>
+                <CardActionArea onClick={() => handleOpen(image)}>
+                  <CardMedia
+                    component="img"
+                    height="400"
+                    image={image.src}
+                    alt={image.title}
+                  />
+                </CardActionArea>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      )}
 
       <Box textAlign="center" mt={4} display="flex" justifyContent="center" gap={2}>
         <IconButton
           onClick={handlePreviousSet}
-          sx={{ backgroundColor: "#32CD32", color: "#000", ":hover": { backgroundColor: "#2FD510" } }}
+          disabled={isLoading} // Deshabilita durante el cambio
+          sx={{
+            backgroundColor: "#32CD32",
+            color: "#000",
+            ":hover": { backgroundColor: "#2FD510" },
+          }}
         >
           <ArrowBackIcon />
         </IconButton>
         <IconButton
           onClick={handleNextSet}
-          sx={{ backgroundColor: "#32CD32", color: "#000", ":hover": { backgroundColor: "#2FD510" } }}
+          disabled={isLoading} // Deshabilita durante el cambio
+          sx={{
+            backgroundColor: "#32CD32",
+            color: "#000",
+            ":hover": { backgroundColor: "#2FD510" },
+          }}
         >
           <ArrowForwardIcon />
         </IconButton>

@@ -42,7 +42,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
       if (isPlaying) {
         audioRef.current.pause();
       } else {
-        audioRef.current.play();
+        audioRef.current.pause();
       }
       setIsPlaying(!isPlaying);
     }
@@ -128,22 +128,28 @@ const PricingCard: React.FC<PricingCardProps> = ({
               {price}/MXN
             </Typography>
             <Button
-              variant="text"
-              sx={{
-                color: "#ffffff",
-                fontSize: { xs: "14px", sm: "15px" },
-                textTransform: "none",
-                display: "flex",
-                alignItems: "center",
-                "&:hover": {
-                  backgroundColor: "#121212",
-                  color: "#2FD510",
-                },
-              }}
-            >
-              Agregar
-              <AddBoxIcon sx={{ marginLeft: 0.5, fontSize: "18px" }} />
-            </Button>
+  variant="text"
+  sx={{
+    color: "#ffffff",
+    fontSize: { xs: "14px", sm: "20px" },
+    textTransform: "none",
+    display: "flex",
+    alignItems: "center",
+    "&:hover": {
+      backgroundColor: "#121212",
+      color: "#2FD510",
+    },
+  }}
+  onClick={() => {
+    const message = `Hola, me interesa contratar el plan "${packageName}" con un precio de ${price}/MXN..`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/525548575825?text=${encodedMessage}`;
+    window.open(whatsappUrl, "_blank");
+  }}
+>
+  Agregar
+  <AddBoxIcon sx={{ marginLeft: 0.5, fontSize: "18px" }} />
+</Button>
           </CardContent>
         </Card>
       </Grid>
