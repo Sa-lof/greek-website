@@ -9,7 +9,7 @@ interface SlideCenterProps {
 const cardData = {
   title: "DJ GREEK",
   description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur hendrerit feugiat dignissim. Nam commodo aliquet dolor quis vestibulum. Sed quis porttitor arcu.",
+    "No se trata de cumplir expectativas; se trata de romperlas. Eso es Greek.",
   buttonText: "Conóceme",
 };
 

@@ -26,8 +26,14 @@ const FollowMe: React.FC = () => {
       }}
     >
       <Typography
-        variant="h4"
-        sx={{ fontWeight: "bold", marginBottom: "30px" }}
+        variant="h2"
+        sx={{
+          fontWeight: 700,
+          fontSize: "64px",
+          color: "#fff",
+          textAlign: "center",
+          marginBottom: "40px",
+        }}
       >
         Follow me
       </Typography>

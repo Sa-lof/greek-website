@@ -4,14 +4,17 @@ import { Box } from '@mui/material';
 import { motion } from 'framer-motion';
 import Slides from '../../components/Slides/Slides';
 import SlideCenter from '../../components/SlideCenter/SlideCenter';
+import image1 from '../../assets/images/home/g-31sf-Photoroom.png'
+import image2 from '../../assets/images/home/g-43sf-Photoroom.png'
+import image3 from '../../assets/images/home/g-55sf-Photoroom.png'
 
 const Carousel: React.FC = () => {
   const [index, setIndex] = useState(0);
 
   const cardComponents = [
-    <Slides alignment="left" imageSrc="/path/to/image1.jpg" />,
-    <SlideCenter backgroundImage="/path/to/background.jpg" />,
-    <Slides alignment="right" imageSrc="/path/to/image2.jpg" />,
+    <Slides alignment="left" imageSrc={image1} />,
+    <SlideCenter backgroundImage={image2} />,
+    <Slides alignment="right" imageSrc={image3} />,
   ];
 
   useEffect(() => {
@@ -26,7 +29,11 @@ const Carousel: React.FC = () => {
     <Box
   sx={{
     width: "100%",
-    height: "60vh", 
+    height: {
+      xs: "50vh", // Altura más pequeña para pantallas móviles
+      sm: "70vh", // Altura media para tablets
+      md: "60vh", // Altura estándar para pantallas grandes
+    },
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

@@ -70,7 +70,7 @@ const Profile: React.FC = () => {
             >
               <Typography
                 variant="h6"
-                sx={{ color: "#000", fontWeight: "bold" }}
+                sx={{ color: "#000", fontWeight: "bold"}}
               >
                 VIDEO
               </Typography>
