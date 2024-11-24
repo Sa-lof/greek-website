@@ -16,9 +16,11 @@ import pricing2 from "./assets/images/pricing/club2.jpg"
 import background1 from "./assets/images/home/g-31sf-Photoroom.png";
 import background2 from "./assets/images/home/g-43sf-Photoroom.png";
 import background4 from "./assets/images/home/g-55sf-Photoroom.png";
+import Loader from "./components/Loader/Loader"; // Importa el loader
 
 function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const backgroundImages = [background1, background2, background4];
 
@@ -30,6 +32,16 @@ function App() {
 
     return () => clearInterval(interval);
   }, [backgroundImages.length]);
+
+  // Simula un tiempo de carga de 3 segundos
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <Loader />; // Muestra el loader mientras se cargan los datos
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -190,10 +202,6 @@ El número de asistentes no afecta la cotización. Si el cliente desea agregar s
 
 **Consideraciones Previas al Evento:**  
 - Anticipo: Se requiere un anticipo del 50% del total cotizado para apartar la fecha. Este anticipo es no reembolsable en caso de cancelación. La reprogramación está sujeta a disponibilidad y acuerdo con Greek.  
-- Preparación: Greek llega al lugar una hora antes del inicio para instalar y hacer pruebas de audio, y necesita 45 minutos para desmontar al finalizar.  
-- Estacionamiento: Se requiere un espacio de estacionamiento reservado para el vehículo de Greek.
-- Staff: Greek estará acompañado de 1-3 personas de su staff, quienes actuarán profesionalmente, sin interactuar con los invitados más allá de su función.  
-- Playlist: Los clientes pueden enviar una lista de reproducción para orientar la línea musical deseada, incluyendo canciones específicas que quieran escuchar.  
 - Liquidación: El evento debe ser liquidado completamente al momento de la llegada de Greek para la instalación. Si no se ha liquidado, el evento no se llevará a cabo y Greek se retirará del lugar.
       `,
     },
