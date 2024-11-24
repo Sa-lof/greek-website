@@ -30,17 +30,17 @@ const Pricing: React.FC<PricingProps> = ({ pricingData }) => {
     >
       {/* Title */}
       <Typography
-        variant="h2"
-        sx={{
-          fontWeight: 700,
-          fontSize: "64px",
-          color: "#fff",
-          textAlign: "center",
-          marginBottom: "40px",
-        }}
-      >
-        YOUR WAY WITH<span style={{ color: "#2FD510" }}>GREEK</span>
-      </Typography>
+  variant="h2"
+  sx={{
+    fontWeight: 700,
+    fontSize: { xs: "32px", sm: "48px", md: "64px", lg: "72px" }, // Tamaño responsivo
+    color: "#fff",
+    textAlign: "center",
+    marginBottom: { xs: "20px", sm: "30px", md: "40px" }, // Margen ajustado a breakpoints
+  }}
+>
+  YOUR WAY WITH<span style={{ color: "#2FD510" }}> GREEK</span>
+</Typography>
 
       {/* Pricing Cards */}
       {pricingData.map((data, index) => (

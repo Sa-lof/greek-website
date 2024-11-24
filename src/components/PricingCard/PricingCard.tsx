@@ -147,7 +147,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
     window.open(whatsappUrl, "_blank");
   }}
 >
-  Agregar
+  Contratar
   <AddBoxIcon sx={{ marginLeft: 0.5, fontSize: "18px" }} />
 </Button>
           </CardContent>
