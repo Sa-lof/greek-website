@@ -1,8 +1,22 @@
 import React from "react";
-import { Box, Typography, Button, Grid } from "@mui/material";
+import { Box, Typography, Grid, Button } from "@mui/material";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 
+// Importa imágenes locales para las miniaturas
+import thumbnail1 from "../../assets/images/youtube/YT1.jpg";
+import thumbnail2 from "../../assets/images/youtube/YT2.jpg";
+import thumbnail3 from "../../assets/images/youtube/YT3.jpg"; // Puedes dejar esta vacía si no hay imagen
+import thumbnail4 from "../../assets/images/youtube/ppyt.jpg"; // Lo mismo aquí
+
 const Profile: React.FC = () => {
+  // Array de videos con enlaces, títulos y miniaturas
+  const videos = [
+    { title: "Video 1", link: "https://www.youtube.com/watch?v=XMX_gCHcfg4", thumbnail: thumbnail1 },
+    { title: "Video 2", link: "https://www.youtube.com/watch?v=WtG2EKzRL-A&t=17s", thumbnail: thumbnail2 },
+    { title: "Video 3", link: "", thumbnail: thumbnail3 }, // Sin miniatura ni enlace
+    { title: "Video 4", link: "", thumbnail: thumbnail4 }, // Sin miniatura ni enlace
+  ];
+
   return (
     <Box
       sx={{
@@ -56,25 +70,62 @@ const Profile: React.FC = () => {
       </Button>
 
       <Grid container spacing={4} sx={{ marginTop: "20px" }}>
-        {[1, 2, 3, 4].map((video, index) => (
+        {videos.map((video, index) => (
           <Grid key={index} item xs={12} sm={6} md={6} lg={6}>
-            <Box
-              sx={{
-                backgroundColor: "#32CD32",
-                height: "150px",
-                borderRadius: "10px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                variant="h6"
-                sx={{ color: "#000", fontWeight: "bold"}}
+            {video.thumbnail ? (
+              // Mostrar miniatura si hay una imagen disponible
+              <a
+                href={video.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  textDecoration: "none",
+                  display: "block",
+                  width: "100%",
+                  height: "100%",
+                }}
               >
-                VIDEO
-              </Typography>
-            </Box>
+                <Box
+                  sx={{
+                    position: "relative",
+                    overflow: "hidden",
+                    borderRadius: "10px",
+                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+                  }}
+                >
+                  <img
+                    src={video.thumbnail}
+                    alt={video.title}
+                    style={{
+                      width: "100%",
+                      height: "250px",
+                      objectFit: "cover",
+                      borderRadius: "10px",
+                    }}
+                  />
+                </Box>
+              </a>
+            ) : (
+              // Mostrar fondo verde con texto "Coming Soon" si no hay miniatura
+              <Box
+                sx={{
+                  backgroundColor: "#32CD32",
+                  height: "250px",
+                  borderRadius: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{ color: "#000", fontWeight: "bold" }}
+                >
+                  Coming Soon
+                </Typography>
+              </Box>
+            )}
           </Grid>
         ))}
       </Grid>

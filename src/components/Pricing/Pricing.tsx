@@ -39,7 +39,7 @@ const Pricing: React.FC<PricingProps> = ({ pricingData }) => {
           marginBottom: "40px",
         }}
       >
-        PARTY WITH <span style={{ color: "#2FD510" }}>GREEK</span>
+        YOUR WAY WITH<span style={{ color: "#2FD510" }}>GREEK</span>
       </Typography>
 
       {/* Pricing Cards */}

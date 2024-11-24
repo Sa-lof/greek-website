@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
+import imagen1 from "../../assets/images/footer/c0afae1d-18fd-476d-a449-254e82a44f37.jpg";
 
 const Footer: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ const Footer: React.FC = () => {
         textAlign: "center",
         width: "100%",
         height: "400px",
-        backgroundImage: `url('https://via.placeholder.com/1920x400')`,
+        backgroundImage: `url(${imagen1})`, // Corregido: Asegúrate de usar `url()`
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -49,7 +50,6 @@ const Footer: React.FC = () => {
           alignItems: "center",
         }}
       >
-
         <Typography variant="body2" sx={{ fontSize: "14px" }}>
           © 2024 DJ Greek
         </Typography>

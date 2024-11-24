@@ -11,8 +11,8 @@ import Pricing from "./components/Pricing/Pricing";
 import Profile from "./components/Profile/Profile";
 import FollowMe from "./components/Follow/Follow";
 import Footer from "./components/Footer/Footer";
-
-// Importar las imágenes del fondo que se usarán para sincronizar con el carrusel
+import pricing1 from "./assets/images/pricing/privado.jpg"
+import pricing2 from "./assets/images/pricing/club2.jpg"
 import background1 from "./assets/images/home/g-31sf-Photoroom.png";
 import background2 from "./assets/images/home/g-43sf-Photoroom.png";
 import background4 from "./assets/images/home/g-55sf-Photoroom.png";
@@ -62,22 +62,42 @@ function App() {
       <Box mt={15} mb={10}>
         <CitySlider
           cities={[
-            "CMDX",
-            "MONTERREY",
-            "GUADALAJARA",
-            "NUEVA YORK",
-            "ORLANDO",
-            "PARIS",
+            "Apotheke",
+            "LooLoo",
+            "Cincodoce",
+            "Standard Gold",
+            "Belive Acapulco",
+            "Hart",
+            "Florida Nightclub",
+            "Foro Escarabajo",
+            "Atenea Barcelona",
+            "La Cuspide",
+            "CLUBBING",
+            "OUTSIDE",
+            "Elements Sessions",
+            "School Of Beats",
+            "Casa Roma",
+            "+30 eventos privados"
           ]}
         />
         <CitySlider
           cities={[
-            "CMDX",
-            "MONTERREY",
-            "GUADALAJARA",
-            "NUEVA YORK",
-            "ORLANDO",
-            "PARIS",
+            "Florida Nightclub",
+            "Foro Escarabajo",
+            "Casa Roma",
+            "+30 eventos privados",
+            "Atenea Barcelona",
+            "OUTSIDE",
+            "Apotheke",
+            "LooLoo",
+            "Cincodoce",
+            "Standard Gold",
+            "Belive Acapulco",
+            "Hart",
+            "Elements Sessions",
+            "School Of Beats",   
+            "La Cuspide",
+            "CLUBBING",      
           ]}
         />
       </Box>
@@ -85,28 +105,27 @@ function App() {
       <Pricing
         pricingData={[
           {
-            imageUrl: "https://via.placeholder.com/200x200",
+            imageUrl: pricing1,
             price: "$300",
             items: [
-              "Lorem ipsum dolor",
-              "Lorem ipsum dolor sit",
-              "Lorem ipsum",
-              "Lorem ipsum dolor",
+              "Ideal para reuniones exclusivas, o celebraciones privadas.",
+              "Greek se encarga de todo: música, luces y sonido para crear una atmósfera personalizada.",
+              "Perfecto para hasta 120 personas, garantizando un ambiente lleno de energía.",
+              "Flexibilidad para adaptar la música a tu gusto con posibilidad de enviar una lista previa.",
             ],
-            packageName: "PAQUETE GREEK",
+            packageName: "GREEK EXCLUSIVE",
             djName: "DJ GREEK",
             audioSrc: "path/to/audio1.mp3",
           },
           {
-            imageUrl: "https://via.placeholder.com/200x200",
+            imageUrl: pricing2,
             price: "$300",
             items: [
-              "Lorem ipsum dolor",
-              "Lorem ipsum dolor sit",
-              "Lorem ipsum",
-              "Lorem ipsum dolor",
+              "Diseñado para el ambiente electrizante de los clubes.",
+              "Greek crea un set que mantiene a la multitud en movimiento toda la noche.",
+              "Interacción directa con la audiencia para mantener la pista de baile llena.",
             ],
-            packageName: "PAQUETE GREEK",
+            packageName: "CLUB ENERGY",
             djName: "DJ GREEK",
             audioSrc: "path/to/audio2.mp3",
           },
