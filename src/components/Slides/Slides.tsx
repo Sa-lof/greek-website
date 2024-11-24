@@ -18,7 +18,7 @@ const Slides: React.FC<SlidesProps> = ({ alignment = "left", imageSrc }) => {
   const isLeftAligned = alignment === "left";
 
   return (
-    <Grid container spacing={2} alignItems="center" height={"auto"}>
+    <Grid container spacing={2} alignItems="center" sx={{ height: "100%" }}>
   <Grid
     item
     xs={12}
@@ -27,15 +27,14 @@ const Slides: React.FC<SlidesProps> = ({ alignment = "left", imageSrc }) => {
     order={{ xs: 2, sm: isLeftAligned ? 1 : 2 }}
     sx={{
       textAlign: isLeftAligned ? "left" : "right",
-      justifyContent: isLeftAligned ? "flex-start" : "flex-end",
-      padding: "16px", // Espaciado en móviles
+      padding: "16px",
+      overflow: "auto", // Desplazamiento si es necesario
     }}
   >
     <Card
       sx={{
         backgroundColor: "inherit",
         color: "#32CD32",
-        fontFamily: "Jost, sans-serif",
         boxShadow: "none",
         padding: 4,
         maxWidth: "800px",
@@ -47,7 +46,8 @@ const Slides: React.FC<SlidesProps> = ({ alignment = "left", imageSrc }) => {
           variant="h1"
           fontWeight={900}
           sx={{
-            fontSize: { xs: "70px", sm: "80px", md: "90px", lg: "100px" },
+            fontSize: { xs: "50px", sm: "60px", md: "70px", lg: "80px" },
+            lineHeight: 1.2,
           }}
           gutterBottom
         >
@@ -57,7 +57,7 @@ const Slides: React.FC<SlidesProps> = ({ alignment = "left", imageSrc }) => {
           variant="body1"
           sx={{
             color: "#FBFBFB",
-            fontSize: { xs: "16px", sm: "18px", md: "20px", lg: "22px" },
+            fontSize: { xs: "14px", sm: "16px", md: "18px", lg: "20px" },
             mb: 4,
             fontWeight: 500,
           }}
@@ -69,7 +69,7 @@ const Slides: React.FC<SlidesProps> = ({ alignment = "left", imageSrc }) => {
           sx={{
             backgroundColor: "#FBFBFB",
             color: "#121212",
-            fontSize: { xs: "14px", sm: "16px" },
+            fontSize: { xs: "12px", sm: "14px", md: "16px" },
             fontWeight: "bold",
             borderRadius: "10px",
             ":hover": { backgroundColor: "#ddd" },

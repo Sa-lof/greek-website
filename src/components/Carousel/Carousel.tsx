@@ -23,18 +23,28 @@ const Carousel: React.FC = () => {
   }, [cardComponents.length]);
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <motion.div
-        key={index}
-        initial={{ opacity: 0, x: 100 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -100 }}
-        transition={{ duration: 0.5 }}
-      >
-        {cardComponents[index]}
-      </motion.div>
-    </Box>
-  );
+    <Box
+  sx={{
+    width: "100%",
+    height: "60vh", 
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden", 
+  }}
+>
+  <motion.div
+    key={index}
+    initial={{ opacity: 0, x: 100 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: -100 }}
+    transition={{ duration: 0.5 }}
+    style={{ width: "100%", height: "100%" }}
+  >
+    {cardComponents[index]}
+  </motion.div>
+</Box>
+  );  
 };
 
 export default Carousel;
