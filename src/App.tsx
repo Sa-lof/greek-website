@@ -40,11 +40,11 @@ function App() {
       <Box
   sx={{
     backgroundImage: `url(${backgroundImages[currentIndex]})`,
-    backgroundSize: "cover", // Cambiado a 'cover' para un ajuste más responsivo
+    backgroundSize: { xs: "contain", sm: "cover" }, // Cambiado a 'cover' para un ajuste más responsivo
     backgroundPosition: "center", // Centrado por defecto
     backgroundRepeat: "no-repeat",
     width: "100%",
-    height: { xs: "85vh", sm: "105vh", md: "100h", lg:"100vh" }, // Ajusta la altura en pantallas pequeñas
+    height: { xs: "105vh", sm: "105vh", md: "100vh", lg:"100vh" }, // Ajusta la altura en pantallas pequeñas
     display: "flex", // Asegura que los hijos estén alineados
     flexDirection: "column", // Apila los elementos verticalmente
     alignItems: "center", // Centra horizontalmente
