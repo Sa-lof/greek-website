@@ -92,7 +92,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
       >
         <Card
           sx={{
-            backgroundColor: "#121212",
+            backgroundColor: "#000000",
             border: "2px solid #2FD510",
             borderRadius: "20px",
             width: { xs: "100%", sm: "80%", md: "70%" },

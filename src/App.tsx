@@ -1,5 +1,4 @@
-// App.tsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./components/Nav/Nav";
 import { ThemeProvider, CssBaseline, Box } from "@mui/material";
 import theme from "./theme";
@@ -13,15 +12,53 @@ import Profile from "./components/Profile/Profile";
 import FollowMe from "./components/Follow/Follow";
 import Footer from "./components/Footer/Footer";
 
+// Importar las imágenes del fondo que se usarán para sincronizar con el carrusel
+import background1 from "./assets/images/home/g-31sf-Photoroom.png";
+import background2 from "./assets/images/home/g-43sf-Photoroom.png";
+import background4 from "./assets/images/home/g-55sf-Photoroom.png";
+
 function App() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const backgroundImages = [background1, background2, background4];
+
+  // Sincronizar cambio de índice
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [backgroundImages.length]);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Navbar />
-      <Carousel />
-      <MusicPlayer />
+
+      {/* Fondo dinámico sincronizado */}
+      <Box
+  sx={{
+    backgroundImage: `url(${backgroundImages[currentIndex]})`,
+    backgroundSize: "contain",
+    backgroundPosition:
+      backgroundImages[currentIndex] === background1
+        ? "right"
+        : backgroundImages[currentIndex] === background4
+        ? "left"
+        : "center",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "100vh",
+  }}
+>
+  <Carousel currentIndex={currentIndex} />
+  <MusicPlayer />
+</Box>
+
       <About />
       <GridComponent />
+
       <Box mt={15} mb={10}>
         <CitySlider
           cities={[
@@ -44,6 +81,7 @@ function App() {
           ]}
         />
       </Box>
+
       <Pricing
         pricingData={[
           {
@@ -74,9 +112,10 @@ function App() {
           },
         ]}
       />
-      <Profile></Profile>
-      <FollowMe></FollowMe>
-      <Footer></Footer>
+
+      <Profile />
+      <FollowMe />
+      <Footer />
     </ThemeProvider>
   );
 }

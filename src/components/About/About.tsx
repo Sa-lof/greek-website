@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, Grid, Typography, Card, CardMedia, CardContent } from "@mui/material";
-
+import imagen1 from '../../assets/images/about/Grik-14-Photoroom.jpg'
 const About = () => {
   return (
     <Box
-      bgcolor="#121212"
+      bgcolor="#000000"
       color="#fff"
       py={{ xs: 4, md: 8 }}
       px={{ xs: 2, md: 4 }}
@@ -46,13 +46,13 @@ const About = () => {
               mx: "auto",
               borderRadius: 4,
               border: "2px solid #2FD510",
-              backgroundColor: "#1a1a1a",
+              backgroundColor: "#000000",
             }}
           >
             <CardMedia
               component="img"
               height="260"
-              image="/path/to/your-image.jpg" // Reemplaza con la ruta a tu imagen
+              image={imagen1} // Reemplaza con la ruta a tu imagen
               alt="DJ Equipment"
               sx={{ borderRadius: 2 }}
             />

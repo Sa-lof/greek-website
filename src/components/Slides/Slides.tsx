@@ -4,7 +4,6 @@ import { Grid, Typography, Button, Card, CardContent } from "@mui/material";
 
 interface SlidesProps {
   alignment?: "right" | "left";
-  imageSrc: string;
 }
 
 const leftCardData = {
@@ -21,7 +20,7 @@ const rightCardData = {
   buttonText: "Explora Más",
 };
 
-const Slides: React.FC<SlidesProps> = ({ alignment = "left", imageSrc }) => {
+const Slides: React.FC<SlidesProps> = ({ alignment = "left" }) => {
   const isLeftAligned = alignment === "left";
   const cardData = isLeftAligned ? leftCardData : rightCardData;
 
@@ -102,18 +101,6 @@ const Slides: React.FC<SlidesProps> = ({ alignment = "left", imageSrc }) => {
           padding: "16px",
         }}
       >
-        <img
-          src={imageSrc}
-          alt={cardData.title}
-          style={{
-            borderRadius: "8px",
-            objectFit: "cover",
-            width: "100%",
-            maxWidth: "500px",
-            height: "300px", // Altura específica
-            maxHeight: "400px", // Máxima altura permitida
-          }}
-        />
       </Grid>
     </Grid>
   );
