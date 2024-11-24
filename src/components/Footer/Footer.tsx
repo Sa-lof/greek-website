@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
         color: "#fff",
         textAlign: "center",
         width: "100%",
-        height: "400px",
+        height: "100vh",
         backgroundImage: `url(${imagen1})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
         <Typography
           variant="h1"
           sx={{
-            fontSize: { xs: "48px", md: "200px" },
+            fontSize: { xs: "90px", sm: "120px", md: "200px" },
             fontWeight: "bold",
             color: "transparent",
             WebkitTextStroke: "2px #32CD32",
@@ -69,24 +69,27 @@ const Footer: React.FC = () => {
           zIndex: 2, // Asegúrate de que este texto esté sobre el overlay
         }}
       >
-        <Typography variant="body2" sx={{ fontSize: "14px",}}>
+        <Typography variant="body2" sx={{ fontSize: "12px",}}>
           © 2024 DJ Greek
         </Typography>
 
         <Typography
   variant="body2"
-  sx={{ fontSize: "14px", textDecoration: "none", color: "inherit" }}
+  sx={{ fontSize: "12px", color: "inherit", textDecoration: "none" }}
   component="a"
-  href="https://amoxtli.tech/" // Reemplaza con la URL real
+  href="https://amoxtli.tech/"
   target="_blank"
   rel="noopener noreferrer"
 >
-  Desarrollado por Amoxil Web Developers
+  Desarrollado por{" "}
+  <Box component="span" sx={{ color: "#32CD32", fontWeight: "bold" }}>
+    Amoxtli Web Developers
+  </Box>
 </Typography>
 
 <Typography
   variant="body2"
-  sx={{ fontSize: "14px", textDecoration: "none", color: "inherit" }}
+  sx={{ fontSize: "12px", textDecoration: "none", color: "inherit" }}
   component="a"
   href="https://amoxtli.tech/" // Reemplaza con la URL real
   target="_blank"

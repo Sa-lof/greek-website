@@ -40,11 +40,11 @@ function App() {
       <Box
   sx={{
     backgroundImage: `url(${backgroundImages[currentIndex]})`,
-    backgroundSize: { xs: "contain", sm: "cover" }, // Cambiado a 'cover' para un ajuste más responsivo
+    backgroundSize: { xs: "contain", sm: "contain", md: "cover", }, // Cambiado a 'cover' para un ajuste más responsivo
     backgroundPosition: "center", // Centrado por defecto
     backgroundRepeat: "no-repeat",
     width: "100%",
-    height: { xs: "105vh", sm: "105vh", md: "100vh", lg:"100vh" }, // Ajusta la altura en pantallas pequeñas
+    height: { xs: "105vh", sm: "105vh", md: "90vh", lg:"90vh" }, // Ajusta la altura en pantallas pequeñas
     display: "flex", // Asegura que los hijos estén alineados
     flexDirection: "column", // Apila los elementos verticalmente
     alignItems: "center", // Centra horizontalmente
@@ -55,8 +55,8 @@ function App() {
   <Carousel currentIndex={currentIndex} />
   <Box
     sx={{
-      width: { xs: "100%", sm: "80%", md: "100%" }, // Ancho responsivo para el reproductor
-      marginTop: { xs: 2, md: 4 }, // Margen superior para espaciado
+      width: { xs: "100%", sm: "100%", md: "100%" }, // Ancho responsivo para el reproductor
+      marginTop: { xs: 2, md: 2 }, // Margen superior para espaciado
     }}
   >
     <MusicPlayer />
