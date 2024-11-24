@@ -9,6 +9,9 @@ import About from "./components/About/About";
 import GridComponent from "./components/GridComponent/GridComponent";
 import CitySlider from "./components/CitySlider/CitySlider";
 import Pricing from "./components/Pricing/Pricing";
+import Profile from "./components/Profile/Profile";
+import FollowMe from "./components/Follow/Follow";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -71,6 +74,9 @@ function App() {
           },
         ]}
       />
+      <Profile></Profile>
+      <FollowMe></FollowMe>
+      <Footer></Footer>
     </ThemeProvider>
   );
 }
