@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, Grid, Button } from "@mui/material";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import imagen1 from "../../assets/images/logo/ytlogo.png"
+import imagen1 from "../../assets/images/youtube/channels4_profile.jpg"
 import thumbnail1 from "../../assets/images/youtube/YT1.jpg";
 import thumbnail2 from "../../assets/images/youtube/YT2.jpg";
 import thumbnail3 from "../../assets/images/youtube/YT3.jpg"; // Puedes dejar esta vacía si no hay imagen

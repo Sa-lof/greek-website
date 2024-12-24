@@ -45,32 +45,37 @@ const CitySlider: React.FC<CitySliderProps> = ({ cities }) => {
       <Slider {...settings}>
         {cities.map((city, index) => (
           <Typography
-            key={index}
-            variant="h4"
-            sx={{
-              color: '#121212', // Texto transparente inicialmente
-              fontWeight: 700,
-              fontSize: '96px',
-              padding: '0 20px',
-              textShadow: `
-                -1px -1px 0 #2FD510,  
-                1px -1px 0 #2FD510,
-                -1px 1px 0 #2FD510,
-                1px 1px 0 #2FD510,
-                -2px 0 0 #2FD510,
-                2px 0 0 #2FD510,
-                0 2px 0 #2FD510,
-                0 -2px 0 #2FD510
-              `, // Crea un contorno verde
-              transition: 'color 0.3s ease, text-shadow 0.3s ease', // Transición suave para efecto hover
-              '&:hover': {
-                color: '#2FD510', // Rellenar texto con verde al hacer hover
-                textShadow: 'none', // Eliminar sombra al hacer hover
-              },
-            }}
-          >
-            {city}
-          </Typography>
+          key={index}
+          variant="h4"
+          sx={{
+            color: '#121212',
+            fontWeight: 700,
+            fontSize: {
+              xs: '32px', // Tamaño para pantallas pequeñas (celulares)
+              sm: '48px', // Tamaño para pantallas medianas
+              md: '72px', // Tamaño para pantallas más grandes
+              lg: '96px', // Tamaño original para pantallas grandes
+            },
+            padding: '0 20px',
+            textShadow: `
+              -1px -1px 0 #2FD510,  
+              1px -1px 0 #2FD510,
+              -1px 1px 0 #2FD510,
+              1px 1px 0 #2FD510,
+              -2px 0 0 #2FD510,
+              2px 0 0 #2FD510,
+              0 2px 0 #2FD510,
+              0 -2px 0 #2FD510
+            `,
+            transition: 'color 0.3s ease, text-shadow 0.3s ease',
+            '&:hover': {
+              color: '#2FD510',
+              textShadow: 'none',
+            },
+          }}
+        >
+          {city}
+        </Typography>
         ))}
       </Slider>
     </Box>
