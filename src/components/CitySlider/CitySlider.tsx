@@ -10,7 +10,7 @@ interface CitySliderProps {
 
 const CitySlider: React.FC<CitySliderProps> = ({ cities }) => {
   const settings = {
-    dots: true, // Mostrar indicadores de navegación
+    dots: false, // Mostrar indicadores de navegación
     infinite: true,
     speed: 500, // Velocidad de transición (ajustada para mejor control manual)
     slidesToShow: 3,
@@ -31,6 +31,7 @@ const CitySlider: React.FC<CitySliderProps> = ({ cities }) => {
           slidesToShow: 1,
           arrows: false, // Ocultar flechas en pantallas pequeñas
           autoplaySpeed: 2000,
+          dots: false,
         },
       },
     ],
