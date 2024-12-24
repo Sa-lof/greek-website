@@ -3,17 +3,12 @@ import {
   Box,
   Typography,
   Button,
-  IconButton,
   Grid,
   Card,
   CardMedia,
   CardContent,
   Modal,
 } from "@mui/material";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import PauseIcon from "@mui/icons-material/Pause";
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
-import SkipNextIcon from "@mui/icons-material/SkipNext";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import InfoIcon from "@mui/icons-material/Info";
 
@@ -36,22 +31,10 @@ const PricingCard: React.FC<PricingCardProps> = ({
   audioSrc,
   moreSpecifications, // Accept additional information
 }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
   const audioRef = React.useRef<HTMLAudioElement>(null);
-
-  const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
 
   const updateProgress = () => {
     if (audioRef.current) {
@@ -204,43 +187,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
           </Typography>
 
           {/* Audio Player */}
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              marginTop: "10px",
-            }}
-          >
-            <audio ref={audioRef} src={audioSrc} />
-            <Typography variant="body2" sx={{ fontSize: "12px" }}>
-              {new Date(currentTime * 1000).toISOString().substr(14, 5)} /{" "}
-              {new Date(duration * 1000).toISOString().substr(14, 5)}
-            </Typography>
-            <IconButton
-              onClick={() =>
-                audioRef.current && (audioRef.current.currentTime -= 10)
-              }
-              sx={{ padding: "4px" }}
-            >
-              <SkipPreviousIcon sx={{ color: "#fff", fontSize: "20px" }} />
-            </IconButton>
-            <IconButton onClick={togglePlay} sx={{ padding: "4px" }}>
-              {isPlaying ? (
-                <PauseIcon sx={{ color: "#fff", fontSize: "20px" }} />
-              ) : (
-                <PlayArrowIcon sx={{ color: "#fff", fontSize: "20px" }} />
-              )}
-            </IconButton>
-            <IconButton
-              onClick={() =>
-                audioRef.current && (audioRef.current.currentTime += 10)
-              }
-              sx={{ padding: "4px" }}
-            >
-              <SkipNextIcon sx={{ color: "#fff", fontSize: "20px" }} />
-            </IconButton>
-          </Box>
+          
           <Box sx={{ width: "100%" }}>
             <Box
               component="progress"
