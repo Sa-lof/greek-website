@@ -30,7 +30,7 @@ const CitySlider: React.FC<CitySliderProps> = ({ cities }) => {
         settings: {
           slidesToShow: 1,
           arrows: false, // Ocultar flechas en pantallas pequeñas
-          autoplaySpeed: 2000,
+          autoplaySpeed: 1000,
           dots: false,
         },
       },
