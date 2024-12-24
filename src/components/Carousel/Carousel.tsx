@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
 import Slides from "../../components/Slides/Slides";
@@ -7,10 +7,13 @@ import ContactModal from "../../components/Contact/Contact";
 
 interface CarouselProps {
   currentIndex: number; // Índice sincronizado con el fondo
+  setCurrentIndex: (index: number) => void; // Permitir cambiar el índice desde App
 }
 
-const Carousel: React.FC<CarouselProps> = ({ currentIndex }) => {
+const Carousel: React.FC<CarouselProps> = ({ currentIndex, setCurrentIndex }) => {
   const [isContactModalOpen, setContactModalOpen] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
 
   const handleContactButtonClick = () => {
     setContactModalOpen(true);
@@ -20,9 +23,38 @@ const Carousel: React.FC<CarouselProps> = ({ currentIndex }) => {
     setContactModalOpen(false);
   };
 
+  // Manejar el inicio del deslizamiento
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  // Manejar el movimiento del deslizamiento
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  // Manejar el final del deslizamiento y calcular la dirección
+  const handleTouchEnd = () => {
+    if (touchStartX.current !== null && touchEndX.current !== null) {
+      const deltaX = touchStartX.current - touchEndX.current;
+
+      // Cambiar a la diapositiva anterior o siguiente dependiendo de la dirección
+      if (deltaX > 50) {
+        // Desliza a la izquierda
+        setCurrentIndex((currentIndex + 1) % 3); // Ajusta según el número de diapositivas
+      } else if (deltaX < -50) {
+        // Desliza a la derecha
+        setCurrentIndex((currentIndex - 1 + 3) % 3); // Ajusta según el número de diapositivas
+      }
+    }
+    // Resetear los valores
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
   const cardComponents = [
     <Slides alignment="left" onContactClick={handleContactButtonClick} />,
-    <SlideCenter onContactClick={handleContactButtonClick} />, // Aquí pasamos la función
+    <SlideCenter onContactClick={handleContactButtonClick} />,
     <Slides alignment="right" onContactClick={handleContactButtonClick} />,
   ];
 
@@ -41,6 +73,9 @@ const Carousel: React.FC<CarouselProps> = ({ currentIndex }) => {
           justifyContent: "center",
           overflow: "hidden",
         }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
         <motion.div
           key={currentIndex}

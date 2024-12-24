@@ -28,7 +28,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length);
-    }, 3000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, [backgroundImages.length]);
@@ -64,7 +64,7 @@ function App() {
     padding: { xs: 2, md: 0 }, // Espaciado interno para pantallas pequeñas
   }}
 >
-  <Carousel currentIndex={currentIndex} />
+<Carousel currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} />
   <Box
     sx={{
       width: { xs: "100%", sm: "100%", md: "100%" }, // Ancho responsivo para el reproductor
