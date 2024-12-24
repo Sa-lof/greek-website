@@ -10,6 +10,7 @@ import {
   Dialog,
   DialogContent,
   CircularProgress,
+  useMediaQuery,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -33,7 +34,10 @@ const GridComponent = () => {
   const [selectedImage, setSelectedImage] = useState<Image | null>(null);
   const [currentSet, setCurrentSet] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const [isSetLoading, setIsSetLoading] = useState(false); // Nuevo estado para el loader de navegación
+  const [isSetLoading, setIsSetLoading] = useState(false);
+
+  // Detectar si la pantalla es pequeña
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
 
   const fetchImages = useCallback(async () => {
     try {
@@ -55,11 +59,10 @@ const GridComponent = () => {
           .from("Greek")
           .getPublicUrl(`Gallery/${file.name}`);
 
-        const img = new Image();
-        img.src = publicUrlData?.publicUrl || "";
-
         return {
-          src: publicUrlData?.publicUrl || ""
+          src: publicUrlData?.publicUrl || "",
+          title: file.name,
+          description: "",
         };
       });
 
@@ -95,7 +98,7 @@ const GridComponent = () => {
     setTimeout(() => {
       setCurrentSet((prevSet) => (prevSet + 1) % Math.ceil(images.length / 6));
       setIsSetLoading(false);
-    }, 300); // Simular una demora corta
+    }, 300);
   };
 
   const handlePreviousSet = () => {
@@ -103,13 +106,23 @@ const GridComponent = () => {
     setTimeout(() => {
       setCurrentSet((prevSet) => (prevSet - 1 + Math.ceil(images.length / 6)) % Math.ceil(images.length / 6));
       setIsSetLoading(false);
-    }, 300); // Simular una demora corta
+    }, 300);
   };
 
   const imagesToDisplay = useMemo(
     () => images.slice(currentSet * 6, (currentSet + 1) * 6),
     [images, currentSet]
   );
+
+  const handleNext = () => {
+    setCurrentSet((prevIndex) => (prevIndex + 1) % images.length);
+  };
+
+  const handlePrevious = () => {
+    setCurrentSet((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+  };
 
   return (
     <Box bgcolor="#000000" color="#fff" py={4} px={4}>
@@ -121,57 +134,99 @@ const GridComponent = () => {
         <Typography variant="h6" color="#fff" textAlign="center">
           No se encontraron imágenes disponibles.
         </Typography>
-      ) : isSetLoading ? ( // Mostrar loader mientras se navega entre conjuntos
-        <Box display="flex" justifyContent="center" alignItems="center" height="400px">
-          <CircularProgress size={40} sx={{ color: "#32CD32" }} />
+      ) : isSmallScreen ? (
+        // Carrusel en pantallas pequeñas
+        <Box position="relative" width="100%" height="400px">
+          <IconButton
+            onClick={handlePrevious}
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "10px",
+              transform: "translateY(-50%)",
+              color: "#FFFFFF",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              ":hover": { backgroundColor: "rgba(255, 255, 255, 0.5)" },
+            }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <Box
+            component="img"
+            src={images[currentSet]?.src}
+            alt={images[currentSet]?.title}
+            sx={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "10px",
+            }}
+            onClick={() => handleOpen(images[currentSet])}
+          />
+          <IconButton
+            onClick={handleNext}
+            sx={{
+              position: "absolute",
+              top: "50%",
+              right: "10px",
+              transform: "translateY(-50%)",
+              color: "#FFFFFF",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              ":hover": { backgroundColor: "rgba(255, 255, 255, 0.5)" },
+            }}
+          >
+            <ArrowForwardIcon />
+          </IconButton>
         </Box>
       ) : (
-        <Grid container spacing={2} justifyContent="center">
-          {imagesToDisplay.map((image, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <Card sx={{ borderRadius: "20px", overflow: "hidden" }}>
-                <CardActionArea onClick={() => handleOpen(image)}>
-                  <CardMedia
-                    component="img"
-                    height="300"
-                    image={image.src}
-                    alt={image.title}
-                    sx={{
-                      transition: "transform 0.3s ease",
-                      ":hover": { transform: "scale(1.05)" },
-                    }}
-                  />
-                </CardActionArea>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+        // Cuadrícula con paginación en pantallas grandes
+        <>
+          <Grid container spacing={2} justifyContent="center">
+            {imagesToDisplay.map((image, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}>
+                <Card sx={{ borderRadius: "20px", overflow: "hidden" }}>
+                  <CardActionArea onClick={() => handleOpen(image)}>
+                    <CardMedia
+                      component="img"
+                      height="300"
+                      image={image.src}
+                      alt={image.title}
+                      sx={{
+                        transition: "transform 0.3s ease",
+                        ":hover": { transform: "scale(1.05)" },
+                      }}
+                    />
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+          <Box textAlign="center" mt={4} display="flex" justifyContent="center" gap={2}>
+            <IconButton
+              onClick={handlePreviousSet}
+              disabled={isLoading || images.length === 0 || isSetLoading}
+              sx={{
+                backgroundColor: "#32CD32",
+                color: "#000",
+                ":hover": { backgroundColor: "#2FD510" },
+              }}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+            <IconButton
+              onClick={handleNextSet}
+              disabled={isLoading || images.length === 0 || isSetLoading}
+              sx={{
+                backgroundColor: "#32CD32",
+                color: "#000",
+                ":hover": { backgroundColor: "#2FD510" },
+              }}
+            >
+              <ArrowForwardIcon />
+            </IconButton>
+          </Box>
+        </>
       )}
-
-      <Box textAlign="center" mt={4} display="flex" justifyContent="center" gap={2}>
-        <IconButton
-          onClick={handlePreviousSet}
-          disabled={isLoading || images.length === 0 || isSetLoading}
-          sx={{
-            backgroundColor: "#32CD32",
-            color: "#000",
-            ":hover": { backgroundColor: "#2FD510" },
-          }}
-        >
-          <ArrowBackIcon />
-        </IconButton>
-        <IconButton
-          onClick={handleNextSet}
-          disabled={isLoading || images.length === 0 || isSetLoading}
-          sx={{
-            backgroundColor: "#32CD32",
-            color: "#000",
-            ":hover": { backgroundColor: "#2FD510" },
-          }}
-        >
-          <ArrowForwardIcon />
-        </IconButton>
-      </Box>
 
       <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
         {selectedImage && (
@@ -179,7 +234,7 @@ const GridComponent = () => {
             sx={{
               position: "relative",
               display: "flex",
-              justifyContent: "center",
+              justifyContent:"center",
               alignItems: "center",
               textAlign: "center",
               color: "#FFFFFF",
@@ -207,6 +262,5 @@ const GridComponent = () => {
     </Box>
   );
 };
-
 
 export default GridComponent;
