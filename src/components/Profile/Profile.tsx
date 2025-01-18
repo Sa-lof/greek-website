@@ -5,15 +5,15 @@ import imagen1 from "../../assets/images/youtube/channels4_profile.jpg"
 import thumbnail1 from "../../assets/images/youtube/YT1.jpg";
 import thumbnail2 from "../../assets/images/youtube/YT2.jpg";
 import thumbnail3 from "../../assets/images/youtube/YT3.jpg"; // Puedes dejar esta vacía si no hay imagen
-import thumbnail4 from "../../assets/images/youtube/ppyt.jpg"; // Lo mismo aquí
+import thumbnail4 from "../../assets/images/youtube/YT4.jpeg"; // Lo mismo aquí
 
 const Profile: React.FC = () => {
   // Array de videos con enlaces, títulos y miniaturas
   const videos = [
     { title: "Video 1", link: "https://www.youtube.com/watch?v=XMX_gCHcfg4", thumbnail: thumbnail1 },
     { title: "Video 2", link: "https://www.youtube.com/watch?v=WtG2EKzRL-A&t=17s", thumbnail: thumbnail2 },
-    { title: "Video 3", link: "", thumbnail: thumbnail3 }, // Sin miniatura ni enlace
-    { title: "Video 4", link: "", thumbnail: thumbnail4 }, // Sin miniatura ni enlace
+    { title: "Video 3", link: " https://youtu.be/9hbb2W21iSA", thumbnail: thumbnail3 }, // Sin miniatura ni enlace
+    { title: "Video 4", link: "https://youtu.be/L1ojZj99VTU?si=QlJxPVHt_6syJPqs", thumbnail: thumbnail4 }, // Sin miniatura ni enlace
   ];
 
   return (
@@ -114,7 +114,7 @@ const Profile: React.FC = () => {
               alt={video.title}
               style={{
                 width: "100%",
-                height: "250px",
+                height: "300px",
                 objectFit: "cover",
                 borderRadius: "10px",
               }}
