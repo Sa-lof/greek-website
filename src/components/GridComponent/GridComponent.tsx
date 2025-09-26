@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import {
   Box,
-  Grid,
+  Grid2 as Grid,
   Card,
   CardActionArea,
   CardMedia,
@@ -18,8 +18,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { createClient } from "@supabase/supabase-js";
 
 // Configuración del cliente Supabase
-const supabaseUrl = "https://jwmxsbmdesknvugepyub.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3bXhzYm1kZXNrbnZ1Z2VweXViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI0NzMwMTUsImV4cCI6MjA0ODA0OTAxNX0.wTrC0J1El7KTYBzaCMgo95c0w8umlwrj1ZhJlq7JLVI";
+const supabaseUrl = "https://ebiixgaozmvwihiebyln.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImViaWl4Z2Fvem12d2loaWVieWxuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NTg4ODAsImV4cCI6MjA3NDQzNDg4MH0.AE5XbrES7C5fFLueER6jlLDYIwOShYCsCnmIlOkJYL0";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 interface Image {
@@ -41,23 +41,36 @@ const GridComponent = () => {
 
   const fetchImages = useCallback(async () => {
     try {
+      console.log("Fetching images from Supabase...");
       const { data, error } = await supabase.storage
-        .from("Greek")
-        .list("Gallery", { limit: 1000 });
+        .from("gallery")
+        .list("", { limit: 1000 });
 
       if (error) {
         console.error("Error al obtener imágenes:", error);
         return [];
       }
 
-      const validFiles = data.filter(
+      console.log("Raw data from Supabase:", data);
+      console.log("Data length:", data?.length);
+      console.log("First few files:", data?.slice(0, 5));
+
+      const validFiles = (data || []).filter(
         (file) => file.name !== ".emptyFolderPlaceholder"
       );
+      console.log("Valid files after filtering:", validFiles);
+      console.log("Valid files length:", validFiles.length);
 
-      const imagePromises = validFiles.map(async (file) => {
-        const { data: publicUrlData } = await supabase.storage
-          .from("Greek")
-          .getPublicUrl(`Gallery/${file.name}`);
+      const imagePromises = validFiles.map((file) => {
+        const { data: publicUrlData } = supabase.storage
+          .from("gallery")
+          .getPublicUrl(file.name);
+
+        const expectedUrl = `https://ebiixgaozmvwihiebyln.supabase.co/storage/v1/object/public/gallery/${file.name}`;
+        console.log(`File: ${file.name}`);
+        console.log(`Generated URL: ${publicUrlData?.publicUrl}`);
+        console.log(`Expected URL: ${expectedUrl}`);
+        console.log(`URLs match: ${publicUrlData?.publicUrl === expectedUrl}`);
 
         return {
           src: publicUrlData?.publicUrl || "",
@@ -66,7 +79,7 @@ const GridComponent = () => {
         };
       });
 
-      return Promise.all(imagePromises);
+      return imagePromises;
     } catch (err) {
       console.error("Error en fetchImages:", err);
       return [];
@@ -77,6 +90,7 @@ const GridComponent = () => {
     const loadImages = async () => {
       setIsLoading(true);
       const imagesFromBucket = await fetchImages();
+      console.log("Final images array:", imagesFromBucket);
       setImages(imagesFromBucket as Image[]);
       setIsLoading(false);
     };
@@ -132,7 +146,7 @@ const GridComponent = () => {
         </Box>
       ) : images.length === 0 ? (
         <Typography variant="h6" color="#fff" textAlign="center">
-          No se encontraron imágenes disponibles.
+          DEBUG: GridComponent - No se encontraron imágenes disponibles.
         </Typography>
       ) : isSmallScreen ? (
         // Carrusel en pantallas pequeñas
@@ -183,7 +197,7 @@ const GridComponent = () => {
         <>
           <Grid container spacing={2} justifyContent="center">
             {imagesToDisplay.map((image, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
                 <Card sx={{ borderRadius: "20px", overflow: "hidden" }}>
                   <CardActionArea onClick={() => handleOpen(image)}>
                     <CardMedia
